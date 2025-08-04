@@ -8,21 +8,11 @@ module.exports = {
     es6: true,
     node: true,
   },
-  plugins: [
-    '@typescript-eslint',
-    'json',
-    'prettier',
-    'jest',
-    'simple-import-sort',
-    'unused-imports',
-    'jsonc',
-    'html',
-  ],
+  plugins: ['@typescript-eslint', 'json', 'prettier', 'jest', 'simple-import-sort', 'unused-imports', 'html'],
   extends: [
     'eslint:recommended',
     'prettier',
     'plugin:jest/recommended',
-    'plugin:jsonc/recommended-with-jsonc',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
   ],
@@ -41,18 +31,6 @@ module.exports = {
       files: ['*.html'],
       env: {
         browser: true,
-      },
-    },
-    {
-      files: ['*.json', '*.jsonc'],
-      parser: 'jsonc-eslint-parser',
-      rules: {
-        'jsonc/array-bracket-spacing': ['error', 'never'],
-        'jsonc/comma-dangle': ['error', 'never'],
-        'jsonc/indent': ['error', 2],
-        'jsonc/key-spacing': ['error', { beforeColon: false, afterColon: true }],
-        'jsonc/no-octal-escape': 'error',
-        'jsonc/object-curly-spacing': ['error', 'always'],
       },
     },
     {

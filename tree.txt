@@ -1,8 +1,5 @@
-import-ant
+ts-app-boilerplate
 ├── jest.preset.js
-├── kanban.md
-├── logs
-│   └── app.log
 ├── modules
 │   ├── cli
 │   │   ├── package.json
@@ -116,7 +113,6 @@ import-ant
 │   │   │   │   ├── EnvironmentProvider.tsx
 │   │   │   │   └── LoggerProvider.tsx
 │   │   │   ├── hooks
-│   │   │   │   ├── use-spotify.ts
 │   │   │   │   └── use-window-size.ts
 │   │   │   ├── images.d.ts
 │   │   │   ├── index.tsx
@@ -213,30 +209,6 @@ import-ant
 ├── package.json
 ├── progress.md
 ├── README.md
-├── status-report.md
-├── tech-design.md
-├── things
-│   ├── 000014.ldb
-│   ├── 000030.ldb
-│   ├── 000070.ldb
-│   ├── 000082.ldb
-│   ├── 000084.ldb
-│   ├── 000087.ldb
-│   ├── 000090.ldb
-│   ├── 000092.ldb
-│   ├── 000094.ldb
-│   ├── 000095.log
-│   ├── CURRENT
-│   ├── LOCK
-│   ├── LOG
-│   ├── LOG 2
-│   ├── LOG 3
-│   ├── LOG 4
-│   ├── LOG 5
-│   ├── LOG 6
-│   ├── LOG 7
-│   ├── LOG.old
-│   └── MANIFEST-000093
 ├── tree.txt
 ├── ts-jest.config.js
 ├── tsconfig-base.json
