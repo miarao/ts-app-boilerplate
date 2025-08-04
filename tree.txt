@@ -1,0 +1,245 @@
+import-ant
+├── jest.preset.js
+├── kanban.md
+├── logs
+│   └── app.log
+├── modules
+│   ├── cli
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── cli.ts
+│   │   │   ├── index.ts
+│   │   │   └── repl-cli.ts
+│   │   ├── tests
+│   │   │   └── cli.spec.ts
+│   │   └── tsconfig.json
+│   ├── client
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── client.ts
+│   │   │   ├── index.ts
+│   │   │   ├── internal-client.ts
+│   │   │   └── local-llm-client.ts
+│   │   ├── tests
+│   │   │   └── client.spec.ts
+│   │   └── tsconfig.json
+│   ├── hello-api
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── hello-api.ts
+│   │   │   └── index.ts
+│   │   ├── tests
+│   │   │   └── hello-api.spec.ts
+│   │   └── tsconfig.json
+│   ├── hello-service
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── hello-service.ts
+│   │   │   └── index.ts
+│   │   ├── tests
+│   │   │   └── hello-service.spec.ts
+│   │   └── tsconfig.json
+│   ├── logger
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── index.ts
+│   │   │   ├── log-path.ts
+│   │   │   └── logger.ts
+│   │   ├── tests
+│   │   │   └── logger.spec.ts
+│   │   └── tsconfig.json
+│   ├── misc
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── index.ts
+│   │   │   ├── make-id.ts
+│   │   │   ├── misc.ts
+│   │   │   ├── model.ts
+│   │   │   ├── moment.ts
+│   │   │   └── parser.ts
+│   │   ├── tests
+│   │   │   ├── misc.spec.ts
+│   │   │   └── moment.spec.ts
+│   │   └── tsconfig.json
+│   ├── misc-fs
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── app-root.ts
+│   │   │   ├── fs-tree.ts
+│   │   │   ├── index.ts
+│   │   │   ├── misc-fs.ts
+│   │   │   └── path-by-mark.ts
+│   │   ├── tests
+│   │   │   └── misc-fs.spec.ts
+│   │   └── tsconfig.json
+│   ├── model-hub-api
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── generate-config.ts
+│   │   │   ├── index.ts
+│   │   │   └── model-hub-api.ts
+│   │   ├── tests
+│   │   │   └── model-hub-api.spec.ts
+│   │   └── tsconfig.json
+│   ├── model-hub-service
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── index.ts
+│   │   │   ├── model-hub-service.ts
+│   │   │   └── model.ts
+│   │   ├── tests
+│   │   │   └── model-hub-service.spec.ts
+│   │   └── tsconfig.json
+│   ├── mux-ui
+│   │   ├── index.html
+│   │   ├── node_modules
+│   │   ├── package.json
+│   │   ├── public
+│   │   │   ├── favicon.ico
+│   │   │   ├── logo192.png
+│   │   │   ├── logo512.png
+│   │   │   ├── manifest.json
+│   │   │   ├── owl-w-bg.svg
+│   │   │   └── robots.txt
+│   │   ├── src
+│   │   │   ├── api
+│   │   │   │   └── document-api-client.ts
+│   │   │   ├── App.tsx
+│   │   │   ├── assets
+│   │   │   │   ├── abstract-blue-pink.jpg
+│   │   │   │   └── owl-no-bg.png
+│   │   │   ├── components
+│   │   │   │   ├── FlippableCard.tsx
+│   │   │   │   ├── NavBar.tsx
+│   │   │   │   └── SearchBar.tsx
+│   │   │   ├── context
+│   │   │   │   ├── EnvironmentProvider.tsx
+│   │   │   │   └── LoggerProvider.tsx
+│   │   │   ├── hooks
+│   │   │   │   ├── use-spotify.ts
+│   │   │   │   └── use-window-size.ts
+│   │   │   ├── images.d.ts
+│   │   │   ├── index.tsx
+│   │   │   ├── logger
+│   │   │   │   └── logger.ts
+│   │   │   ├── pages
+│   │   │   │   ├── Home.tsx
+│   │   │   │   ├── layouts
+│   │   │   │   │   ├── HomeLayout.tsx
+│   │   │   │   │   └── LayoutSelector.tsx
+│   │   │   │   ├── Mux.tsx
+│   │   │   │   └── SpotifyCallback.tsx
+│   │   │   ├── routes
+│   │   │   │   ├── CustomRouter.tsx
+│   │   │   │   └── routes-config.ts
+│   │   │   └── theme
+│   │   │       ├── custom-theme.tsx
+│   │   │       ├── design-system.json
+│   │   │       ├── global-theme-interface.ts
+│   │   │       └── global-theme.ts
+│   │   ├── tests
+│   │   │   └── heptagon.spec.ts
+│   │   ├── tsconfig.json
+│   │   └── vite.config.ts
+│   ├── service-boilerplate
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── endpoint.ts
+│   │   │   ├── executor.ts
+│   │   │   ├── handler.ts
+│   │   │   ├── index.ts
+│   │   │   ├── primitives.ts
+│   │   │   ├── service-boilerplate.ts
+│   │   │   ├── service-catalog.ts
+│   │   │   ├── service-with-data.ts
+│   │   │   └── throttler.ts
+│   │   ├── tests
+│   │   │   ├── executor.spec.ts
+│   │   │   ├── service-boilerplate.spec.ts
+│   │   │   └── throttler.spec.ts
+│   │   └── tsconfig.json
+│   ├── service-client
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── index.ts
+│   │   │   └── service-client.ts
+│   │   ├── tests
+│   │   │   ├── service-client.e2e.spec.ts
+│   │   │   └── service-client.spec.ts
+│   │   └── tsconfig.json
+│   ├── services-cli
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── index.ts
+│   │   │   ├── run.ts
+│   │   │   └── services-cli.ts
+│   │   ├── tests
+│   │   │   └── services-cli.spec.ts
+│   │   └── tsconfig.json
+│   ├── services-local
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── index.ts
+│   │   │   ├── services-local.ts
+│   │   │   └── start.ts
+│   │   ├── tests
+│   │   │   └── services-local.spec.ts
+│   │   └── tsconfig.json
+│   ├── thing-store
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── index.ts
+│   │   │   └── thing-store.ts
+│   │   ├── tests
+│   │   │   └── thing-store.spec.ts
+│   │   └── tsconfig.json
+│   ├── thing-store-local
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── index.ts
+│   │   │   └── thing-store-local.ts
+│   │   ├── tests
+│   │   │   └── thing-store-local.spec.ts
+│   │   └── tsconfig.json
+│   └── transport
+│       ├── package.json
+│       ├── src
+│       │   ├── index.ts
+│       │   └── transport.ts
+│       ├── tests
+│       │   └── transport.spec.ts
+│       └── tsconfig.json
+├── new-module
+├── package.json
+├── progress.md
+├── README.md
+├── status-report.md
+├── tech-design.md
+├── things
+│   ├── 000014.ldb
+│   ├── 000030.ldb
+│   ├── 000070.ldb
+│   ├── 000082.ldb
+│   ├── 000084.ldb
+│   ├── 000087.ldb
+│   ├── 000090.ldb
+│   ├── 000092.ldb
+│   ├── 000094.ldb
+│   ├── 000095.log
+│   ├── CURRENT
+│   ├── LOCK
+│   ├── LOG
+│   ├── LOG 2
+│   ├── LOG 3
+│   ├── LOG 4
+│   ├── LOG 5
+│   ├── LOG 6
+│   ├── LOG 7
+│   ├── LOG.old
+│   └── MANIFEST-000093
+├── tree.txt
+├── ts-jest.config.js
+├── tsconfig-base.json
+├── tsconfig.json
+├── turbo.json
+└── yarn.lock

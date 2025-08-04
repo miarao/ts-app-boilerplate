@@ -1,0 +1,31 @@
+{
+  "name": "hello-service",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "miarao",
+  "main": "dist/src/index.js",
+  "files": [
+    "dist/src"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "../../jest.preset.js"
+  },
+  "dependencies": {
+    "hello-api": "1.0.0",
+    "jest": "29.7.0",
+    "logger": "1.0.0",
+    "misc": "1.0.0",
+    "service-boilerplate": "1.0.0",
+    "thing-store": "1.0.0",
+    "thing-store-local": "1.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "typescript": "^5.7"
+  }
+}

@@ -1,0 +1,6 @@
+!.eslintrc.js
+!.huskyrc.js
+!.openzeppelin
+!.solhint.json
+**/dist/*
+**/scripts/*.js

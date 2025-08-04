@@ -1,0 +1,32 @@
+{
+  "name": "services-cli",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "miarao",
+  "main": "dist/src/index.js",
+  "files": [
+    "dist/src"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "run:cli": "node dist/src/run.js",
+    "start": "node dist/src/index.js",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "../../jest.preset.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "cli": "1.0.0",
+    "logger": "1.0.0",
+    "misc": "1.0.0",
+    "service-boilerplate": "1.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.10",
+    "typescript": "^5.7"
+  }
+}

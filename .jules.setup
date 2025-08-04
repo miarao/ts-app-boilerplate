@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# 1) Install Node.js 22.x via NodeSource (includes Corepack)
+echo "🔧 Adding NodeSource repo for Node.js 22.x and installing nodejs…"
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -  # adds the NodeSource PPA :contentReference[oaicite:0]{index=0}
+sudo apt-get install -y nodejs                                  # installs Node.js 22.x (with Corepack bundled) :contentReference[oaicite:1]{index=1}
+
+# 2) Enable Corepack & prepare Yarn v4.5.2
+echo "⚙️  Enabling Corepack and activating Yarn@4.5.2…"
+npx corepack yarn --version   # → 4.5.2
+npx corepack yarn install --mode=skip-build --no-immutable   # pulls in your workspaces
+
+# 3) Configure Yarn to use node_modules instead of PnP
+echo "📦 Configuring Yarn for a node_modules layout…"
+cat > .yarnrc.yml <<EOF                                      # Yarn settings belong in .yarnrc.yml :contentReference[oaicite:4]{index=4}
+nodeLinker: node-modules
+EOF
+
+# 4) Clean any residual PnP artifacts and cache
+echo "🧹 Cleaning old PnP files and Yarn cache…"
+rm -rf .pnp.* .yarn/cache
+npx corepack yarn cache clean                                             # resets Yarn’s global cache :contentReference[oaicite:5]{index=5}
+
+# 5) Install all dependencies into node_modules
+echo "📥 Installing all workspaces…"
+npx corepack yarn install                                    # installs every workspace into node_modules :contentReference[oaicite:6]{index=6}
+
+# 6) Add missing workspace-specific devDependencies
+echo "🔧 Adding webpack & html-webpack-plugin to the heptagon workspace…"
+npx corepack yarn workspace heptagon add -D webpack html-webpack-plugin  # satisfies html-webpack-plugin’s peer requirement :contentReference[oaicite:7]{index=7}
+
+# 7) Align root-level peer dependencies
+# echo "⚖️  Aligning React and MUI peer versions at the root…"
+# npx corepack yarn add -W @mui/icons-material@^6.4.8 react-dom@^18.2.0  # matches peer ranges for react-card-flip, etc. :contentReference[oaicite:8]{index=8}
+
+# 8) Run your clean build to verify success
+echo "🚀 Running build-clean to verify everything compiles…"
+npx corepack yarn build-clean                                 # runs your turbo-powered clean build :contentReference[oaicite:9]{index=9}
+
+echo "✅ Jules environment is fully set up and build-clean passed!"

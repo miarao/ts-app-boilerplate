@@ -1,0 +1,92 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Enable Corepack
+        run: |
+          corepack enable
+          yarn --version # Verify the correct version is being used
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(corepack yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+
+      - name: Cache yarn dependencies
+        uses: actions/cache@v3
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependencies
+        run: corepack yarn install --immutable
+
+      - name: Lint
+        run: corepack yarn lint
+
+      - name: Build
+        run: corepack yarn build
+
+      - name: Check Test Existence
+        run: |
+          echo "::group::Module Test Status"
+          # Dynamically discover all modules
+          modules=$(ls -d modules/*/ | cut -d'/' -f2)
+          missing_tests=0
+          missing_modules=()
+          
+          # Check each module for test files
+          for module in $modules; do
+            if [ -d "modules/$module/tests" ] && [ $(find "modules/$module/tests" -name "*spec.ts" | wc -l) -gt 0 ]; then
+              echo "✓ $module has spec.ts test files"
+            else
+              echo "⚠️ $module missing spec.ts test files"
+              missing_tests=$((missing_tests + 1))
+              missing_modules+=("$module")
+            fi
+          done
+          
+          echo "Found $missing_tests modules without spec.ts test files"
+          
+          # Fail if any modules are missing tests
+          if [ $missing_tests -gt 0 ]; then
+            echo "::error::The following modules are missing test files: ${missing_modules[*]}"
+            echo "::endgroup::"
+            exit 1
+          fi
+          
+          echo "::endgroup::"
+          exit 0
+
+      - name: Test
+        run: |
+          corepack yarn test || { echo "Tests completed with issues"; exit 1; }
+
+  # Optional job to build and push Docker images if needed later
+  # docker:
+  #   name: Build Docker Images
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   if: github.ref == 'refs/heads/main'
+  #   steps:
+  #     # Docker build steps would go here

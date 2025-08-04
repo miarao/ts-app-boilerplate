@@ -1,0 +1,27 @@
+{
+  "name": "cli",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "miarao",
+  "main": "dist/src/index.js",
+  "files": [
+    "dist/src"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "../../jest.preset.js"
+  },
+  "dependencies": {
+    "misc": "1.0.0",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.10",
+    "@types/yargs": "^17.0.13"
+  }
+}

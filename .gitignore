@@ -1,0 +1,10 @@
+.yarn/
+.idea
+**/dist/
+.turbo/
+
+.env
+
+/logs
+/things
+.DS_Store

@@ -1,0 +1,23 @@
+{
+  "trailingComma": "all",
+  "tabWidth": 2,
+  "semi": false,
+  "singleQuote": true,
+  "printWidth": 120,
+  "arrowParens": "avoid",
+  "overrides": [
+    {
+      "files": "*.sol",
+      "options": {
+        "parser": "solidity-parse",
+        "singleQuote": false
+      }
+    },
+    {
+      "files": "*.json",
+      "options": {
+        "parser": "json"
+      }
+    }
+  ]
+}

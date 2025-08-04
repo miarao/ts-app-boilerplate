@@ -1,0 +1,88 @@
+#!/bin/bash
+
+
+set -e
+
+if (( $# != 1 ))
+then
+  echo "Usage: `basename $0` <package-name>"
+  exit 1
+fi
+
+module_name=$1
+
+d0=`dirname $0`
+resolved=`readlink -f "$d0"`
+cd "$resolved"
+
+mkdir "modules/$module_name"
+cd "modules/$module_name"
+mkdir src tests
+
+# Create package.json
+cat > package.json <<EOF
+{
+  "name": "$module_name",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "miarao",
+
+  "main": "dist/src/index.js",
+  "files": [
+    "dist/src"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "../../jest.preset.js"
+  },
+  "dependencies": {
+      "jest": "29.7.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "typescript": "^5.7"
+  }
+}
+EOF
+
+# Create tsconfig.json
+cat > tsconfig.json <<EOF
+{
+  "extends": "../../tsconfig-base.json",
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "dist"
+  },
+  "include": [
+    "src/**/*",
+    "src/**/*.json",
+    "tests/**/*",
+    "tests/**/*.json"
+  ]
+}
+EOF
+
+# Create src/index.ts
+cat > src/index.ts <<EOF
+export * from './$module_name'
+EOF
+
+# Create src/<module_name>.ts
+cat > src/$1.ts <<EOF
+export function foo() {}
+EOF
+
+# Create tests/<module_name>.spec.ts
+cat > tests/$1.spec.ts <<EOF
+describe('$1', () => {
+  test('foo', async () => {
+    expect(5).toEqual(5)
+  })
+})
+EOF
+
+yarn
