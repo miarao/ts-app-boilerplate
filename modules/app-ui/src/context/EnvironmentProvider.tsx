@@ -7,8 +7,6 @@ import { createContext, useMemo } from 'react'
 export type EnvVars = {
   apiUrl: string
   logLevel: string
-  spotifyClientId: string
-  spotifyRedirectTarget: string
   [key: string]: string
 }
 
@@ -30,11 +28,10 @@ export const EnvironmentProvider: React.FC<EnvironmentProviderProps> = ({ childr
     const env = process.env
     const viteEnvVars: EnvVars = {
       // API URLs
-      apiUrl: env.VITE_LOCAL_SERVICES_URL || 'http://localhost:7077',
+      apiUrl:
+        env.VITE_LOCAL_SERVICES_URL ||
+        failMe('missing env variable: "local services url", check .env.example and update .env accordingly'),
       logLevel: env.VITE_DEBUG === 'true' ? 'debug' : env.VITE_LOG_LEVEL ? env.VITE_LOG_LEVEL : 'info',
-      spotifyClientId: env.VITE_SPOTIFY_CLIENT_ID || failMe('missing env variable: Spotify client id'),
-      spotifyRedirectTarget:
-        env.VITE_SPOTIFY_REDIRECT_TARGET || failMe('missing env variable: Spotify redirect target'),
     }
 
     // Override with test values if provided (useful for testing)
