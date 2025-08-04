@@ -107,118 +107,107 @@ export class ServicesLocal {
     })
 
     // Main service invocation endpoint
-    this.app.post(
-      '/invoke',
-      // TODO (om): auth + throttling ??
-      // (req: Request, res: Response, next: NextFunction) => {
-      //   const { serviceName } = req.body
-      //   if (serviceName === 'auth') {
-      //     return next()
-      //   }
-      //   authMiddleware(req, res, next)
-      // },
-      (req: Request, res: Response, next: NextFunction) => {
-        const handleInvoke = async () => {
-          try {
-            const parseResult = InvokeRequestSchema.safeParse(req.body)
+    this.app.post('/invoke', (req: Request, res: Response, next: NextFunction) => {
+      const handleInvoke = async () => {
+        try {
+          const parseResult = InvokeRequestSchema.safeParse(req.body)
 
-            if (!parseResult.success) {
-              const errorResponse: ServiceResponse = {
-                status: 'error',
-                requestId: makeId(),
-                error: {
-                  code: 'validation_error',
-                  message: `Invalid request payload. received request: ${JSON.stringify(req)}`,
-                  details: parseResult.error.format(),
-                },
-              }
-              return res.status(400).json(errorResponse)
-            }
-
-            const { serviceName, request, context: rawContext } = parseResult.data
-
-            // Ensure we have a requestId by either:
-            // 1. Using one provided in the context
-            // 2. Using x-request-id header
-            // 3. Generating a new UUID
-            const requestId =
-              rawContext && 'requestId' in rawContext && typeof rawContext.requestId === 'string'
-                ? rawContext.requestId
-                : (req.headers['x-request-id'] as string) || makeId()
-
-            // Create the request context with the requestId and any other provided context properties
-            const requestContext: RequestContext = {
-              ...(rawContext || {}),
-              requestId,
-              // Add HTTP context if not provided
-              http:
-                rawContext && 'http' in rawContext
-                  ? rawContext.http
-                  : {
-                      headers: req.headers as Record<string, string>,
-                      method: req.method as HttpMethod,
-                      path: req.path,
-                      query: req.query as Record<string, string | string[]>,
-                      params: req.params,
-                    },
-            }
-
-            // Get the service handler
-            const service = this.services.get(serviceName)
-            if (!service) {
-              const errorResponse: ServiceResponse = {
-                status: 'error',
-                requestId: requestContext.requestId,
-                error: {
-                  code: 'unknown_service',
-                  message: `Service '${serviceName}' not found`,
-                },
-              }
-              this.logger.error(`Service not found: ${serviceName}`)
-              return res.status(404).json(errorResponse)
-            }
-
-            this.logger.info(`Handling request for service: ${serviceName}`, { requestId: requestContext.requestId })
-
-            // Get the service handler and invoke it
-            const handler = service.getHandler()
-            const result = await handler(request, requestContext)
-
-            // If the result already has a proper structure, return it directly
-            if (result && typeof result === 'object' && 'status' in result) {
-              return res.json(result)
-            }
-
-            // Otherwise, wrap the result in a standard response
-            const successResponse: ServiceResponse = {
-              status: 'success',
-              requestId: requestContext.requestId,
-              data: result,
-            }
-
-            return res.json(successResponse)
-          } catch (error) {
-            this.logger.error(`Error handling request for service:`, error)
-
-            // Format the error response
+          if (!parseResult.success) {
             const errorResponse: ServiceResponse = {
               status: 'error',
-              requestId: typeof req.headers['x-request-id'] === 'string' ? req.headers['x-request-id'] : makeId(),
+              requestId: makeId(),
               error: {
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                code: error instanceof Error && 'code' in error ? (error as any).code : 'internal_error',
-                message: error instanceof Error ? error.message : 'Unknown error occurred',
+                code: 'validation_error',
+                message: `Invalid request payload. received request: ${JSON.stringify(req)}`,
+                details: parseResult.error.format(),
               },
             }
-
-            return res.status(500).json(errorResponse)
+            return res.status(400).json(errorResponse)
           }
-        }
 
-        // Execute the async handler and catch any errors
-        handleInvoke().catch(next)
-      },
-    )
+          const { serviceName, request, context: rawContext } = parseResult.data
+
+          // Ensure we have a requestId by either:
+          // 1. Using one provided in the context
+          // 2. Using x-request-id header
+          // 3. Generating a new UUID
+          const requestId =
+            rawContext && 'requestId' in rawContext && typeof rawContext.requestId === 'string'
+              ? rawContext.requestId
+              : (req.headers['x-request-id'] as string) || makeId()
+
+          // Create the request context with the requestId and any other provided context properties
+          const requestContext: RequestContext = {
+            ...(rawContext || {}),
+            requestId,
+            // Add HTTP context if not provided
+            http:
+              rawContext && 'http' in rawContext
+                ? rawContext.http
+                : {
+                    headers: req.headers as Record<string, string>,
+                    method: req.method as HttpMethod,
+                    path: req.path,
+                    query: req.query as Record<string, string | string[]>,
+                    params: req.params,
+                  },
+          }
+
+          // Get the service handler
+          const service = this.services.get(serviceName)
+          if (!service) {
+            const errorResponse: ServiceResponse = {
+              status: 'error',
+              requestId: requestContext.requestId,
+              error: {
+                code: 'unknown_service',
+                message: `Service '${serviceName}' not found`,
+              },
+            }
+            this.logger.error(`Service not found: ${serviceName}`)
+            return res.status(404).json(errorResponse)
+          }
+
+          this.logger.info(`Handling request for service: ${serviceName}`, { requestId: requestContext.requestId })
+
+          // Get the service handler and invoke it
+          const handler = service.getHandler()
+          const result = await handler(request, requestContext)
+
+          // If the result already has a proper structure, return it directly
+          if (result && typeof result === 'object' && 'status' in result) {
+            return res.json(result)
+          }
+
+          // Otherwise, wrap the result in a standard response
+          const successResponse: ServiceResponse = {
+            status: 'success',
+            requestId: requestContext.requestId,
+            data: result,
+          }
+
+          return res.json(successResponse)
+        } catch (error) {
+          this.logger.error(`Error handling request for service:`, error)
+
+          // Format the error response
+          const errorResponse: ServiceResponse = {
+            status: 'error',
+            requestId: typeof req.headers['x-request-id'] === 'string' ? req.headers['x-request-id'] : makeId(),
+            error: {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              code: error instanceof Error && 'code' in error ? (error as any).code : 'internal_error',
+              message: error instanceof Error ? error.message : 'Unknown error occurred',
+            },
+          }
+
+          return res.status(500).json(errorResponse)
+        }
+      }
+
+      // Execute the async handler and catch any errors
+      handleInvoke().catch(next)
+    })
 
     // Error handler
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

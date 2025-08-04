@@ -30,7 +30,7 @@ export const EnvironmentProvider: React.FC<EnvironmentProviderProps> = ({ childr
     const env = process.env
     const viteEnvVars: EnvVars = {
       // API URLs
-      apiUrl: env.VITE_DOCUMENT_API_URL || 'http://localhost:1404',
+      apiUrl: env.VITE_LOCAL_SERVICES_URL || 'http://localhost:7077',
       logLevel: env.VITE_DEBUG === 'true' ? 'debug' : env.VITE_LOG_LEVEL ? env.VITE_LOG_LEVEL : 'info',
       spotifyClientId: env.VITE_SPOTIFY_CLIENT_ID || failMe('missing env variable: Spotify client id'),
       spotifyRedirectTarget:

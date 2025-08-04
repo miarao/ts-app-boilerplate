@@ -29,6 +29,7 @@ export default defineConfig({
     alias: {
       misc: path.resolve(__dirname, '../misc/src'),
       client: path.resolve(__dirname, '../client/src'),
+      'hello-api': path.resolve(__dirname, '../hello-api/src'),
     },
   },
   server: { port: 8080 },

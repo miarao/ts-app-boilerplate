@@ -29,7 +29,7 @@ export interface EndpointClientProviderContextType {
 }
 
 export const endpoints: EndpointsMap = {
-  greeting: {
+  helloMember: {
     requestParser: zodThingParser(HelloMemberRequest),
     responseParser: zodThingParser(HelloMemberResponse),
   },

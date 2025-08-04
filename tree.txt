@@ -1,5 +1,7 @@
 ts-app-boilerplate
 ├── jest.preset.js
+├── logs
+│   └── app.log
 ├── modules
 │   ├── app-ui
 │   │   ├── index.html
@@ -13,8 +15,6 @@ ts-app-boilerplate
 │   │   │   ├── owl-w-bg.svg
 │   │   │   └── robots.txt
 │   │   ├── src
-│   │   │   ├── api
-│   │   │   │   └── document-api-client.ts
 │   │   │   ├── App.tsx
 │   │   │   ├── assets
 │   │   │   │   ├── abstract-blue-pink.jpg
@@ -24,6 +24,7 @@ ts-app-boilerplate
 │   │   │   │   ├── NavBar.tsx
 │   │   │   │   └── SearchBar.tsx
 │   │   │   ├── context
+│   │   │   │   ├── EndpointClientProvider.tsx
 │   │   │   │   ├── EnvironmentProvider.tsx
 │   │   │   │   └── LoggerProvider.tsx
 │   │   │   ├── hooks
@@ -37,8 +38,7 @@ ts-app-boilerplate
 │   │   │   │   ├── layouts
 │   │   │   │   │   ├── HomeLayout.tsx
 │   │   │   │   │   └── LayoutSelector.tsx
-│   │   │   │   ├── Mux.tsx
-│   │   │   │   └── SpotifyCallback.tsx
+│   │   │   │   └── SamplePage.tsx
 │   │   │   ├── routes
 │   │   │   │   ├── CustomRouter.tsx
 │   │   │   │   └── routes-config.ts
@@ -209,6 +209,13 @@ ts-app-boilerplate
 ├── package.json
 ├── progress.md
 ├── README.md
+├── things
+│   ├── 000007.log
+│   ├── CURRENT
+│   ├── LOCK
+│   ├── LOG
+│   ├── LOG.old
+│   └── MANIFEST-000006
 ├── tree.txt
 ├── ts-jest.config.js
 ├── tsconfig-base.json

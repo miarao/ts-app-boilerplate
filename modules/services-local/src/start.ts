@@ -30,7 +30,7 @@ async function start() {
 
   // Create the services-local server
   const servicesLocal = new ServicesLocal(7077, logger)
-  const internalClientUrl = 'http://localhost:7077'
+  // const internalClientUrl = 'http://localhost:7077'
 
   // Create all service instances with shared store
   const helloService = new HelloService(logger, clock, thingStore)

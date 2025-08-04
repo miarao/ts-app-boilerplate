@@ -15,7 +15,6 @@
     "run-services-cli": "yarn workspace services-cli run:cli",
     "sort-package-json": "sort-package-json 'modules/*/package.json' 'package.json'",
     "start-app": "yarn workspace app-ui run start",
-    "start-document-api": "yarn workspace document-api start",
     "start-interactive-session": "node modules/model-hub/dist/src/model-hub.js start",
     "start-local-services": "yarn workspace services-local start:local",
     "test": "turbo run test",

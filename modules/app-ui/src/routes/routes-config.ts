@@ -31,7 +31,7 @@ export const routes: Routes = {
     path: '/mux',
     label: 'Mux',
     backgroundImageOrLayout: `url(${fallbackBackgroundImage})`,
-    component: () => import('../pages/Mux'),
+    component: () => import('../pages/SamplePage'),
   },
   // callback: {
   //   path: '/callback',
