@@ -1,6 +1,56 @@
 ts-app-boilerplate
 ├── jest.preset.js
 ├── modules
+│   ├── app-ui
+│   │   ├── index.html
+│   │   ├── node_modules
+│   │   ├── package.json
+│   │   ├── public
+│   │   │   ├── favicon.ico
+│   │   │   ├── logo192.png
+│   │   │   ├── logo512.png
+│   │   │   ├── manifest.json
+│   │   │   ├── owl-w-bg.svg
+│   │   │   └── robots.txt
+│   │   ├── src
+│   │   │   ├── api
+│   │   │   │   └── document-api-client.ts
+│   │   │   ├── App.tsx
+│   │   │   ├── assets
+│   │   │   │   ├── abstract-blue-pink.jpg
+│   │   │   │   └── owl-no-bg.png
+│   │   │   ├── components
+│   │   │   │   ├── FlippableCard.tsx
+│   │   │   │   ├── NavBar.tsx
+│   │   │   │   └── SearchBar.tsx
+│   │   │   ├── context
+│   │   │   │   ├── EnvironmentProvider.tsx
+│   │   │   │   └── LoggerProvider.tsx
+│   │   │   ├── hooks
+│   │   │   │   └── use-window-size.ts
+│   │   │   ├── images.d.ts
+│   │   │   ├── index.tsx
+│   │   │   ├── logger
+│   │   │   │   └── logger.ts
+│   │   │   ├── pages
+│   │   │   │   ├── Home.tsx
+│   │   │   │   ├── layouts
+│   │   │   │   │   ├── HomeLayout.tsx
+│   │   │   │   │   └── LayoutSelector.tsx
+│   │   │   │   ├── Mux.tsx
+│   │   │   │   └── SpotifyCallback.tsx
+│   │   │   ├── routes
+│   │   │   │   ├── CustomRouter.tsx
+│   │   │   │   └── routes-config.ts
+│   │   │   └── theme
+│   │   │       ├── custom-theme.tsx
+│   │   │       ├── design-system.json
+│   │   │       ├── global-theme-interface.ts
+│   │   │       └── global-theme.ts
+│   │   ├── tests
+│   │   │   └── heptagon.spec.ts
+│   │   ├── tsconfig.json
+│   │   └── vite.config.ts
 │   ├── cli
 │   │   ├── package.json
 │   │   ├── src
@@ -87,56 +137,6 @@ ts-app-boilerplate
 │   │   ├── tests
 │   │   │   └── model-hub-service.spec.ts
 │   │   └── tsconfig.json
-│   ├── mux-ui
-│   │   ├── index.html
-│   │   ├── node_modules
-│   │   ├── package.json
-│   │   ├── public
-│   │   │   ├── favicon.ico
-│   │   │   ├── logo192.png
-│   │   │   ├── logo512.png
-│   │   │   ├── manifest.json
-│   │   │   ├── owl-w-bg.svg
-│   │   │   └── robots.txt
-│   │   ├── src
-│   │   │   ├── api
-│   │   │   │   └── document-api-client.ts
-│   │   │   ├── App.tsx
-│   │   │   ├── assets
-│   │   │   │   ├── abstract-blue-pink.jpg
-│   │   │   │   └── owl-no-bg.png
-│   │   │   ├── components
-│   │   │   │   ├── FlippableCard.tsx
-│   │   │   │   ├── NavBar.tsx
-│   │   │   │   └── SearchBar.tsx
-│   │   │   ├── context
-│   │   │   │   ├── EnvironmentProvider.tsx
-│   │   │   │   └── LoggerProvider.tsx
-│   │   │   ├── hooks
-│   │   │   │   └── use-window-size.ts
-│   │   │   ├── images.d.ts
-│   │   │   ├── index.tsx
-│   │   │   ├── logger
-│   │   │   │   └── logger.ts
-│   │   │   ├── pages
-│   │   │   │   ├── Home.tsx
-│   │   │   │   ├── layouts
-│   │   │   │   │   ├── HomeLayout.tsx
-│   │   │   │   │   └── LayoutSelector.tsx
-│   │   │   │   ├── Mux.tsx
-│   │   │   │   └── SpotifyCallback.tsx
-│   │   │   ├── routes
-│   │   │   │   ├── CustomRouter.tsx
-│   │   │   │   └── routes-config.ts
-│   │   │   └── theme
-│   │   │       ├── custom-theme.tsx
-│   │   │       ├── design-system.json
-│   │   │       ├── global-theme-interface.ts
-│   │   │       └── global-theme.ts
-│   │   ├── tests
-│   │   │   └── heptagon.spec.ts
-│   │   ├── tsconfig.json
-│   │   └── vite.config.ts
 │   ├── service-boilerplate
 │   │   ├── package.json
 │   │   ├── src
