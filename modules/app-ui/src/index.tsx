@@ -3,6 +3,7 @@ import React from 'react'
 import { createRoot } from 'react-dom/client'
 
 import App from './App'
+import { EndpointClientProvider } from './context/EndpointClientProvider'
 import { EnvironmentProvider } from './context/EnvironmentProvider'
 import { LoggerProvider } from './context/LoggerProvider'
 import { generalTheme } from './theme/custom-theme'
@@ -18,9 +19,11 @@ root.render(
     <ThemeProvider theme={generalTheme}>
       <CssBaseline />
       <EnvironmentProvider>
-        <LoggerProvider>
-          <App />
-        </LoggerProvider>
+        <EndpointClientProvider>
+          <LoggerProvider>
+            <App />
+          </LoggerProvider>
+        </EndpointClientProvider>
       </EnvironmentProvider>
     </ThemeProvider>
   </React.StrictMode>,

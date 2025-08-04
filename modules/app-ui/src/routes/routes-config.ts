@@ -33,11 +33,11 @@ export const routes: Routes = {
     backgroundImageOrLayout: `url(${fallbackBackgroundImage})`,
     component: () => import('../pages/Mux'),
   },
-  callback: {
-    path: '/callback',
-    label: 'Spotify Callback',
-    backgroundImageOrLayout: `url(${fallbackBackgroundImage})`,
-    component: () => import('../pages/SpotifyCallback'),
-    hideFromNav: true,
-  },
+  // callback: {
+  //   path: '/callback',
+  //   label: 'Spotify Callback',
+  //   backgroundImageOrLayout: `url(${fallbackBackgroundImage})`,
+  //   component: () => import('../pages/SpotifyCallback'),
+  //   hideFromNav: true,
+  // },
 }

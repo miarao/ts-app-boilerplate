@@ -2663,6 +2663,7 @@ __metadata:
     eslint-plugin-react-hooks: "npm:^5.1.0"
     eslint-plugin-simple-import-sort: "npm:^7.0.0"
     eslint-plugin-unused-imports: "npm:^4.1.4"
+    hello-api: "npm:1.0.0"
     html-webpack-plugin: "npm:^5.6.3"
     jest: "npm:29.7.0"
     jest-config: "npm:29.7.0"

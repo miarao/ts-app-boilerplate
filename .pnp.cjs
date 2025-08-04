@@ -3940,6 +3940,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react-hooks", "virtual:016a9e6cf023a74994b19f0339c3d2265b65f447ed165e2c69c4ca3f0be596f4f0ecc61930fad2b53e2a7612e385db0696a901b99bf6f8a41a46be753fe6fb8e#npm:5.2.0"],\
           ["eslint-plugin-simple-import-sort", "virtual:56f1ce1f9f9b479f080761cd76d9d237bec80814063d8e8d827fb20687fd788741c827505a578773081558bad12314fe6404481371b02f74c02ebbad129f6fbd#npm:7.0.0"],\
           ["eslint-plugin-unused-imports", "virtual:56f1ce1f9f9b479f080761cd76d9d237bec80814063d8e8d827fb20687fd788741c827505a578773081558bad12314fe6404481371b02f74c02ebbad129f6fbd#npm:4.1.4"],\
+          ["hello-api", "workspace:modules/hello-api"],\
           ["html-webpack-plugin", "virtual:016a9e6cf023a74994b19f0339c3d2265b65f447ed165e2c69c4ca3f0be596f4f0ecc61930fad2b53e2a7612e385db0696a901b99bf6f8a41a46be753fe6fb8e#npm:5.6.3"],\
           ["jest", "virtual:56f1ce1f9f9b479f080761cd76d9d237bec80814063d8e8d827fb20687fd788741c827505a578773081558bad12314fe6404481371b02f74c02ebbad129f6fbd#npm:29.7.0"],\
           ["jest-config", "virtual:56f1ce1f9f9b479f080761cd76d9d237bec80814063d8e8d827fb20687fd788741c827505a578773081558bad12314fe6404481371b02f74c02ebbad129f6fbd#npm:29.7.0"],\

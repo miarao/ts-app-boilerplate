@@ -36,6 +36,7 @@
     "@tsparticles/slim": "^3.8.1",
     "@types/node": "^22.13.10",
     "client": "1.0.0",
+    "hello-api": "1.0.0",
     "jest": "29.7.0",
     "jest-config": "29.7.0",
     "lodash": "^4.17.21",
