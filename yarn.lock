@@ -7401,6 +7401,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"playground@workspace:modules/playground":
+  version: 0.0.0-use.local
+  resolution: "playground@workspace:modules/playground"
+  dependencies:
+    "@types/jest": "npm:^29.5.14"
+    jest: "npm:29.7.0"
+    typescript: "npm:^5.7"
+  languageName: unknown
+  linkType: soft
+
 "possible-typed-array-names@npm:^1.0.0":
   version: 1.1.0
   resolution: "possible-typed-array-names@npm:1.1.0"

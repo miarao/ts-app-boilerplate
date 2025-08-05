@@ -55,6 +55,10 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:modules/model-hub-service"\
     },\
     {\
+      "name": "playground",\
+      "reference": "workspace:modules/playground"\
+    },\
+    {\
       "name": "service-boilerplate",\
       "reference": "workspace:modules/service-boilerplate"\
     },\
@@ -96,6 +100,7 @@ const RAW_RUNTIME_STATE =
     ["misc-fs", ["workspace:modules/misc-fs"]],\
     ["model-hub-api", ["workspace:modules/model-hub-api"]],\
     ["model-hub-service", ["workspace:modules/model-hub-service"]],\
+    ["playground", ["workspace:modules/playground"]],\
     ["service-boilerplate", ["workspace:modules/service-boilerplate"]],\
     ["service-client", ["workspace:modules/service-client"]],\
     ["services-cli", ["workspace:modules/services-cli"]],\
@@ -9450,6 +9455,18 @@ const RAW_RUNTIME_STATE =
           ["find-up", "npm:4.1.0"]\
         ],\
         "linkType": "HARD"\
+      }]\
+    ]],\
+    ["playground", [\
+      ["workspace:modules/playground", {\
+        "packageLocation": "./modules/playground/",\
+        "packageDependencies": [\
+          ["playground", "workspace:modules/playground"],\
+          ["@types/jest", "npm:29.5.14"],\
+          ["jest", "virtual:56f1ce1f9f9b479f080761cd76d9d237bec80814063d8e8d827fb20687fd788741c827505a578773081558bad12314fe6404481371b02f74c02ebbad129f6fbd#npm:29.7.0"],\
+          ["typescript", "patch:typescript@npm%3A5.9.2#optional!builtin<compat/typescript>::version=5.9.2&hash=5786d5"]\
+        ],\
+        "linkType": "SOFT"\
       }]\
     ]],\
     ["possible-typed-array-names", [\
