@@ -18,3 +18,9 @@ export type GetMembersRequest = z.infer<typeof GetMembersRequest>
 
 export const GetMembersResponse = z.array(Member)
 export type GetMembersResponse = z.infer<typeof GetMembersResponse>
+
+export const GetEntityGraphRequest = z.object({})
+export type GetEntityGraphRequest = z.infer<typeof GetEntityGraphRequest>
+
+export const GetEntityGraphResponse = z.array(Member)
+export type GetEntityGraphResponse = z.infer<typeof GetEntityGraphResponse>

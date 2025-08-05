@@ -72,5 +72,24 @@ export class HelloService extends ServiceWithData {
         },
       }),
     )
+
+    catalog.register(
+      defineEndpoint('getEntityMap', GetMembersRequest, GetMembersResponse, {
+        handle: async (_request, context) => {
+          this.logger.info('Processing getMembers request', { requestId: context.requestId })
+
+          // Retrieve all members from the store
+          const members = await this.getDataByType<Member>('member')
+          const response = members.map(member => ({
+            name: member.name,
+            email: member.email,
+          }))
+
+          this.logger.info(`Retrieved ${members.length} members`, { requestId: context.requestId })
+
+          return response
+        },
+      }),
+    )
   }
 }
