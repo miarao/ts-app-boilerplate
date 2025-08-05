@@ -10,6 +10,8 @@
     "build-clean": "turbo run build --cache=local:,remote:",
     "clean": "turbo clean",
     "lint": "turbo run lint -- --ext .ts,.tsx,.js,.jsx,.json && eslint --fix",
+    "format": "prettier --write \"**/*.{ts,tsx}\" \"!**/*.d.ts\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx}\"",
     "maintain": "yarn lint --fix && prettier --write '**/*.json' && rimraf node_modules && yarn sort-package-json && yarn tree",
     "prepare": "yarn install && yarn build-clean && yarn test-clean && yarn maintain",
     "run-services-cli": "yarn workspace services-cli run:cli",
