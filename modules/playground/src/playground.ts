@@ -46,11 +46,11 @@ export async function main(): Promise<void> {
   await cli.run()
 }
 
-main().catch(e => {
-  errorPrinter(
-    `CLI Execution Error: terminated unexpectedly. Error: ${errorLike(e).message}`,
-    'CLI Execution Error: terminated unexpectedly.',
-  )
-  // eslint-disable-next-line no-process-exit
-  process.exit(1)
-})
+// main().catch(e => {
+//   errorPrinter(
+//     `CLI Execution Error: terminated unexpectedly. Error: ${errorLike(e).message}`,
+//     'CLI Execution Error: terminated unexpectedly.',
+//   )
+//   // eslint-disable-next-line no-process-exit
+//   process.exit(1)
+// })
