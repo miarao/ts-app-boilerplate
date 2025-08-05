@@ -13,6 +13,7 @@
     "format:check": "prettier --check \"**/*.{ts,tsx}\"",
     "lint": "turbo run lint -- --ext .ts,.tsx,.js,.jsx,.json && eslint --fix",
     "maintain": "yarn lint --fix && yarn format && rimraf node_modules && yarn sort-package-json && yarn tree",
+    "playground": "yarn workspace playground run:cli",
     "prepare": "yarn install && yarn build-clean && yarn test-clean && yarn maintain",
     "run-services-cli": "yarn workspace services-cli run:cli",
     "sort-package-json": "sort-package-json 'modules/*/package.json' 'package.json'",

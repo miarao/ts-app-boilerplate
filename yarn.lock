@@ -7406,6 +7406,8 @@ __metadata:
   resolution: "playground@workspace:modules/playground"
   dependencies:
     "@types/jest": "npm:^29.5.14"
+    "@types/node": "npm:^22.10.10"
+    cli: "npm:1.0.0"
     jest: "npm:29.7.0"
     misc: "npm:1.0.0"
     typescript: "npm:^5.7"
