@@ -7410,6 +7410,7 @@ __metadata:
     cli: "npm:1.0.0"
     jest: "npm:29.7.0"
     misc: "npm:1.0.0"
+    misc-fs: "npm:1.0.0"
     typescript: "npm:^5.7"
   languageName: unknown
   linkType: soft

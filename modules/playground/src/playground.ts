@@ -1,6 +1,7 @@
 import { CommandDefinition, YargsCLI } from 'cli'
 import { errorLike, errorPrinter, printer } from 'misc'
 
+import { processAndNormalize } from './build-relationship-graph'
 import { parseNumbers, StreamMedianCalculator } from './stream-median-calculator'
 
 const commands: CommandDefinition[] = [
@@ -23,6 +24,20 @@ const commands: CommandDefinition[] = [
       }
     },
   },
+  {
+    name: 'process-events',
+    description: 'process cloud trail events',
+    handler: async _argv => {
+      try {
+        const _normalizedEvents = processAndNormalize()
+        //printer(normalizedEvents)
+      } catch (err) {
+        const error = `Error: ${err instanceof Error ? err.message : errorLike(err, 'Unknown error').message}`
+        printer(error)
+        throw new Error(`error while calculating median: ${error}`)
+      }
+    },
+  },
 ]
 
 export async function main(): Promise<void> {
@@ -37,5 +52,5 @@ main().catch(e => {
     'CLI Execution Error: terminated unexpectedly.',
   )
   // eslint-disable-next-line no-process-exit
-  process.exit(1) // Explicitly exit with error code
+  process.exit(1)
 })
