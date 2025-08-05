@@ -209,13 +209,6 @@ ts-app-boilerplate
 ├── package.json
 ├── progress.md
 ├── README.md
-├── things
-│   ├── 000007.log
-│   ├── CURRENT
-│   ├── LOCK
-│   ├── LOG
-│   ├── LOG.old
-│   └── MANIFEST-000006
 ├── tree.txt
 ├── ts-jest.config.js
 ├── tsconfig-base.json

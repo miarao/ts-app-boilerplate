@@ -34,6 +34,10 @@ function generateTree(dir: string, prefix: string = ''): string {
     if (item.isDirectory() && item.name === 'dist') {
       return false
     }
+    if (item.isDirectory() && item.name === 'things') {
+      return false
+    }
+
     return true
   })
 
