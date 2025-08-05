@@ -5177,6 +5177,7 @@ __metadata:
     jest: "npm:29.7.0"
     logger: "npm:1.0.0"
     misc: "npm:1.0.0"
+    playground: "npm:1.0.0"
     service-boilerplate: "npm:1.0.0"
     thing-store: "npm:1.0.0"
     thing-store-local: "npm:1.0.0"
@@ -7401,7 +7402,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playground@workspace:modules/playground":
+"playground@npm:1.0.0, playground@workspace:modules/playground":
   version: 0.0.0-use.local
   resolution: "playground@workspace:modules/playground"
   dependencies:

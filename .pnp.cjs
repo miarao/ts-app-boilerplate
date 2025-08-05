@@ -6871,6 +6871,7 @@ const RAW_RUNTIME_STATE =
           ["jest", "virtual:56f1ce1f9f9b479f080761cd76d9d237bec80814063d8e8d827fb20687fd788741c827505a578773081558bad12314fe6404481371b02f74c02ebbad129f6fbd#npm:29.7.0"],\
           ["logger", "workspace:modules/logger"],\
           ["misc", "workspace:modules/misc"],\
+          ["playground", "workspace:modules/playground"],\
           ["service-boilerplate", "workspace:modules/service-boilerplate"],\
           ["thing-store", "workspace:modules/thing-store"],\
           ["thing-store-local", "workspace:modules/thing-store-local"],\

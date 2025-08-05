@@ -1,6 +1,15 @@
-import { GetMembersRequest, GetMembersResponse, HelloMemberRequest, HelloMemberResponse, Member } from 'hello-api'
+import {
+  GetEntityGraphRequest,
+  GetEntityGraphResponse,
+  GetMembersRequest,
+  GetMembersResponse,
+  HelloMemberRequest,
+  HelloMemberResponse,
+  Member,
+} from 'hello-api'
 import { createDefaultLogger, Logger } from 'logger'
 import { Moment, zodThingParser } from 'misc'
+import { processAndNormalize } from 'playground'
 import { defineEndpoint, ServiceCatalog, ServiceWithData, SimpleThrottler } from 'service-boilerplate'
 import { ThingStore } from 'thing-store'
 
@@ -88,6 +97,31 @@ export class HelloService extends ServiceWithData {
           this.logger.info(`Retrieved ${members.length} members`, { requestId: context.requestId })
 
           return response
+        },
+      }),
+    )
+
+    catalog.register(
+      defineEndpoint('getEntityGraph', GetEntityGraphRequest, GetEntityGraphResponse, {
+        handle: async (_request, context) => {
+          this.logger.info('Processing getEntityGraph request', { requestId: context.requestId })
+
+          try {
+            // Call processAndNormalize from playground module
+            const normalizedEvents = processAndNormalize()
+
+            this.logger.info(`Retrieved ${normalizedEvents.length} normalized events`, {
+              requestId: context.requestId,
+            })
+
+            return normalizedEvents
+          } catch (error) {
+            this.logger.error('Error processing entity graph', {
+              requestId: context.requestId,
+              error: error instanceof Error ? error.message : String(error),
+            })
+            throw error
+          }
         },
       }),
     )

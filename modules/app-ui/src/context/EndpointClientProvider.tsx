@@ -1,6 +1,6 @@
 import type { RequestConfig } from 'client'
 import { createInternalApiClient } from 'client'
-import { HelloMemberRequest, HelloMemberResponse } from 'hello-api'
+import { GetEntityGraphRequest, GetEntityGraphResponse, HelloMemberRequest, HelloMemberResponse } from 'hello-api'
 import type { Parser } from 'misc'
 import { zodThingParser } from 'misc'
 import { errorLike } from 'misc'
@@ -32,6 +32,10 @@ export const endpoints: EndpointsMap = {
   helloMember: {
     requestParser: zodThingParser(HelloMemberRequest),
     responseParser: zodThingParser(HelloMemberResponse),
+  },
+  getEntityGraph: {
+    requestParser: zodThingParser(GetEntityGraphRequest),
+    responseParser: zodThingParser(GetEntityGraphResponse),
   },
 }
 

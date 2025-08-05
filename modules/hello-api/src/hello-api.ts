@@ -22,5 +22,12 @@ export type GetMembersResponse = z.infer<typeof GetMembersResponse>
 export const GetEntityGraphRequest = z.object({})
 export type GetEntityGraphRequest = z.infer<typeof GetEntityGraphRequest>
 
-export const GetEntityGraphResponse = z.array(Member)
+export const NormalizedEvent = z.object({
+  action: z.string(),
+  ipEntityName: z.string(),
+  namedArn: z.array(z.string()),
+})
+export type NormalizedEvent = z.infer<typeof NormalizedEvent>
+
+export const GetEntityGraphResponse = z.array(NormalizedEvent)
 export type GetEntityGraphResponse = z.infer<typeof GetEntityGraphResponse>
