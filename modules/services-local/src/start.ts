@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
 import { HelloService } from 'hello-service'
 import { createDefaultLogger, isLogLevel, Level } from 'logger'
-import { failMe, Moment } from 'misc'
+import { failMe, Instant } from 'misc'
 import { ModelHubService } from 'model-hub-service'
 import { ThingStoreLocal } from 'thing-store-local'
 
@@ -21,7 +21,7 @@ async function start() {
 
   logger.info(`starting services with log level: ${logLevel}`)
 
-  const clock = Moment.now()
+  const clock = Instant.now()
   const thingStore = new ThingStoreLocal()
 
   // Initialize the thing store

@@ -102,11 +102,11 @@ ts-app-boilerplate
 │   │   │   ├── make-id.ts
 │   │   │   ├── misc.ts
 │   │   │   ├── model.ts
-│   │   │   ├── moment.ts
+│   │   │   ├── instant.ts
 │   │   │   └── parser.ts
 │   │   ├── tests
 │   │   │   ├── misc.spec.ts
-│   │   │   └── moment.spec.ts
+│   │   │   └── instant.spec.ts
 │   │   └── tsconfig.json
 │   ├── misc-fs
 │   │   ├── package.json
