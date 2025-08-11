@@ -32,14 +32,6 @@ export const McpServerConfig = z.object({
 })
 export type McpServerConfig = z.infer<typeof McpServerConfig>
 
-// tool call
-export const InvokeToolRequest = z.object({
-  serverId: McpServerId,
-  tool: z.string().min(1),
-  params: z.unknown().default({}), // validated by the MCP tool itself
-})
-export type InvokeToolRequest = z.infer<typeof InvokeToolRequest>
-
 export const ListServersRequest = z.object({})
 export type ListServersRequest = z.infer<typeof ListServersRequest>
 
@@ -94,16 +86,13 @@ export const ListResourcesResponse = z.object({
 })
 export type ListResourcesResponse = z.infer<typeof ListResourcesResponse>
 
-export interface McpServerAdapter {
-  readonly id: string
-  start(): Promise<void>
-  stop(): Promise<void>
-  listTools(): Promise<ToolListItem[]>
-  listResources(): Promise<ResourceListItem[]>
-  invokeTool(req: Omit<InvokeToolRequest, 'serverId'>): Promise<unknown>
-  isRunning(): boolean
-}
+// tool call
+export const InvokeToolRequest = z.object({
+  serverId: McpServerId,
+  tool: z.string().min(1),
+  params: z.unknown().default({}), // validated by the MCP tool itself
+})
+export type InvokeToolRequest = z.infer<typeof InvokeToolRequest>
 
-export interface McpAdapterFactory {
-  create(config: McpServerConfig): McpServerAdapter
-}
+export const InvokeToolResponse = z.object({ result: z.unknown() })
+export type InvokeToolResponse = z.infer<typeof InvokeToolResponse>

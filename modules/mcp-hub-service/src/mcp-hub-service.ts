@@ -2,6 +2,7 @@
 import { Logger } from 'logger'
 import {
   InvokeToolRequest,
+  InvokeToolResponse,
   ListResourcesRequest,
   ListResourcesResponse,
   ListServersRequest,
@@ -14,12 +15,17 @@ import {
   UnregisterServerResponse,
 } from 'mcp-hub-api'
 import { defineEndpoint, ServiceBoilerplate, ServiceCatalog, SimpleThrottler } from 'service-boilerplate'
-import { z } from 'zod'
 
-import { DefaultAdapterFactory } from './adapter'
+import { DefaultAdapterFactory, McpServerAdapter } from './adapter'
 
+/**
+ * McpHubService provides a registry for Model Context Protocol (MCP) servers.
+ *
+ * It adheres to the ServiceBoilerplate pattern by validating incoming requests
+ * with Zod schemas, executing business logic, and returning type-safe responses.
+ */
 export class McpHubService extends ServiceBoilerplate {
-  private readonly servers = new Map<string, ReturnType<DefaultAdapterFactory['create']>>()
+  private readonly servers = new Map<string, McpServerAdapter>()
   private readonly factory = new DefaultAdapterFactory()
 
   constructor(logger: Logger) {
@@ -29,32 +35,43 @@ export class McpHubService extends ServiceBoilerplate {
     this.registerEndpoints(catalog)
   }
 
-  private registerEndpoints(catalog: ServiceCatalog) {
+  private registerEndpoints(catalog: ServiceCatalog): void {
     // registerServer
     catalog.register(
-      defineEndpoint('mcp.registerServer', McpServerConfig, RegisterServerResponse, {
-        handle: async (cfg: McpServerConfig) => {
-          if (this.servers.has(cfg.id)) {
-            throw new Error(`Server ${cfg.id} already exists`)
+      defineEndpoint('registerServer', McpServerConfig, RegisterServerResponse, {
+        handle: async (request: McpServerConfig, context) => {
+          this.logger.info(`Processing registerServer request for id: ${request.id}`, { requestId: context?.requestId })
+
+          if (this.servers.has(request.id)) {
+            throw new Error(`Server ${request.id} already exists`)
           }
-          const adapter = this.factory.create(cfg)
+
+          const adapter = this.factory.create(request)
           await adapter.start()
-          this.servers.set(cfg.id, adapter)
-          return { id: cfg.id }
+          this.servers.set(request.id, adapter)
+
+          this.logger.info(`Registered server: ${request.id}`, { requestId: context?.requestId })
+          return { id: request.id }
         },
       }),
     )
 
     // unregisterServer
     catalog.register(
-      defineEndpoint('mcp.unregisterServer', UnregisterServerRequest, UnregisterServerResponse, {
-        handle: async (id: string) => {
-          const s = this.servers.get(id)
-          if (!s) {
+      defineEndpoint('unregisterServer', UnregisterServerRequest, UnregisterServerResponse, {
+        handle: async (request: UnregisterServerRequest, context) => {
+          const { id } = request
+          this.logger.info(`Processing unregisterServer request for id: ${id}`, { requestId: context?.requestId })
+
+          const server = this.servers.get(id)
+          if (!server) {
             throw new Error(`Server ${id} not found`)
           }
-          await s.stop()
+
+          await server.stop()
           this.servers.delete(id)
+
+          this.logger.info(`Unregistered server: ${id}`, { requestId: context?.requestId })
           return { id }
         },
       }),
@@ -62,50 +79,68 @@ export class McpHubService extends ServiceBoilerplate {
 
     // listServers
     catalog.register(
-      defineEndpoint('mcp.listServers', ListServersRequest, ListServersResponse, {
-        handle: async () => ({
-          servers: Array.from(this.servers.entries()).map(([id, s]) => ({ serverId: id, running: s.isRunning() })),
-        }),
+      defineEndpoint('listServers', ListServersRequest, ListServersResponse, {
+        handle: async (_request: ListServersRequest, context) => {
+          this.logger.info('Processing listServers request', { requestId: context?.requestId })
+          return {
+            servers: Array.from(this.servers.entries()).map(([id, server]) => ({
+              serverId: id,
+              running: server.isRunning(),
+            })),
+          }
+        },
       }),
     )
 
     // listTools
     catalog.register(
-      defineEndpoint('mcp.listTools', ListToolsRequest, ListToolsResponse, {
-        handle: async (id: string) => {
-          const s = this.must(id)
-          return { tools: await s.listTools() }
+      defineEndpoint('listTools', ListToolsRequest, ListToolsResponse, {
+        handle: async (request: ListToolsRequest, context) => {
+          const { id } = request
+          this.logger.info(`Processing listTools request for id: ${id}`, { requestId: context?.requestId })
+
+          const server = this.must(id)
+          const tools = await server.listTools()
+          return { tools }
         },
       }),
     )
 
     // listResources
     catalog.register(
-      defineEndpoint('mcp.listResources', ListResourcesRequest, ListResourcesResponse, {
-        handle: async (id: string) => {
-          const s = this.must(id)
-          return { resources: await s.listResources() }
+      defineEndpoint('listResources', ListResourcesRequest, ListResourcesResponse, {
+        handle: async (request: ListResourcesRequest, context) => {
+          const { id } = request
+          this.logger.info(`Processing listResources request for id: ${id}`, { requestId: context?.requestId })
+
+          const server = this.must(id)
+          const resources = await server.listResources()
+          return { resources }
         },
       }),
     )
 
     // invokeTool
     catalog.register(
-      defineEndpoint('mcp.invokeTool', InvokeToolRequest, z.object({ result: z.unknown() }), {
-        handle: async (req: InvokeToolRequest) => {
-          const s = this.must(req.serverId)
-          const result = await s.invokeTool({ tool: req.tool, params: req.params })
+      defineEndpoint('invokeTool', InvokeToolRequest, InvokeToolResponse, {
+        handle: async (request: InvokeToolRequest, context) => {
+          this.logger.info(`Processing invokeTool request for serverId: ${request.serverId}, tool: ${request.tool}`, {
+            requestId: context?.requestId,
+          })
+
+          const server = this.must(request.serverId)
+          const result = await server.invokeTool({ tool: request.tool, params: request.params })
           return { result }
         },
       }),
     )
   }
 
-  private must(id: string) {
-    const s = this.servers.get(id)
-    if (!s) {
+  private must(id: string): McpServerAdapter {
+    const server = this.servers.get(id)
+    if (!server) {
       throw new Error(`Server ${id} not found`)
     }
-    return s
+    return server
   }
 }
