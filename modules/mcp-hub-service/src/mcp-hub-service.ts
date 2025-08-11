@@ -64,7 +64,7 @@ export class McpHubService extends ServiceBoilerplate {
     catalog.register(
       defineEndpoint('mcp.listServers', ListServersRequest, ListServersResponse, {
         handle: async () => ({
-          servers: Array.from(this.servers.entries()).map(([id, s]) => ({ id, running: s.isRunning() })),
+          servers: Array.from(this.servers.entries()).map(([id, s]) => ({ serverId: id, running: s.isRunning() })),
         }),
       }),
     )
