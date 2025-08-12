@@ -86,13 +86,44 @@ export const ListResourcesResponse = z.object({
 })
 export type ListResourcesResponse = z.infer<typeof ListResourcesResponse>
 
-// tool call
-export const InvokeToolRequest = z.object({
-  serverId: McpServerId,
-  tool: z.string().min(1),
-  params: z.unknown().default({}), // validated by the MCP tool itself
+export const RandomNumberRequest = z.object({
+  min: z.number().optional(),
+  max: z.number().optional(),
 })
+export type RandomNumberRequest = z.infer<typeof RandomNumberRequest>
+
+/** Response returned by the randomNumber tool. */
+export const RandomNumberResponse = z.object({ value: z.number() })
+export type RandomNumberResponse = z.infer<typeof RandomNumberResponse>
+
+/** Request shape for the randomUuid tool.  There are no parameters. */
+export const RandomUuidRequest = z.object({})
+export type RandomUuidRequest = z.infer<typeof RandomUuidRequest>
+
+/** Response returned by the randomUuid tool. */
+export const RandomUuidResponse = z.object({ uuid: z.string() })
+export type RandomUuidResponse = z.infer<typeof RandomUuidResponse>
+
+export const InvokeToolPayload = z.union([
+  z.object({ tool: z.literal('randomNumber'), params: RandomNumberRequest }),
+  z.object({ tool: z.literal('randomUuid'), params: RandomUuidRequest }),
+])
+
+/**
+ * Request used to invoke a tool on a server.  The `serverId` selects
+ * which registered server to target; the `tool` and `params` are
+ * validated via the `InvokeToolPayload` union.
+ */
+export const InvokeToolRequest = z.intersection(McpServerIdObject.pick({ id: true }), InvokeToolPayload)
 export type InvokeToolRequest = z.infer<typeof InvokeToolRequest>
 
-export const InvokeToolResponse = z.object({ result: z.unknown() })
+/** Union of all possible tool invocation responses. */
+export const InvokeToolResult = z.union([
+  z.object({ result: RandomNumberResponse }),
+  z.object({ result: RandomUuidResponse }),
+])
+
+/** Response returned when invoking a tool.  The shape of `result`
+ * depends on the tool that was invoked. */
+export const InvokeToolResponse = InvokeToolResult
 export type InvokeToolResponse = z.infer<typeof InvokeToolResponse>

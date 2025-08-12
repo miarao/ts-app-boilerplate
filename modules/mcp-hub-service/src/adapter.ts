@@ -1,6 +1,7 @@
 import { InvokeToolRequest, McpServerConfig, ResourceListItem, ToolListItem } from 'mcp-hub-api'
 
 import { HttpAdapter } from './http-adapter'
+import { RandomAdapter } from './random-mcp'
 import { StdioAdapter } from './stdio-adapter'
 
 export interface McpServerAdapter {
@@ -17,15 +18,21 @@ export interface McpAdapterFactory {
   create(config: McpServerConfig): McpServerAdapter
 }
 
-export class DefaultAdapterFactory implements McpAdapterFactory {
-  create(cfg: McpServerConfig): McpServerAdapter {
-    switch (cfg.transport.kind) {
-      case 'stdio':
-        return new StdioAdapter(cfg)
+export class DefaultAdapterFactory {
+  create(config: McpServerConfig): McpServerAdapter {
+    switch (config.transport) {
       case 'http':
-        return new HttpAdapter(cfg)
+      case 'ws':
+        return new HttpAdapter(config)
+      case 'grpc':
+        return new GrpcAdapter(config)
+      case 'stdio':
+        return new StdioAdapter(config)
       default:
-        throw new Error(`Unsupported transport: ${(cfg as any).transport?.kind}`)
+        if ((config as any).transport === 'random') {
+          return new RandomAdapter()
+        }
+        throw new Error(`Unsupported transport: ${config.transport}`)
     }
   }
 }

@@ -11284,6 +11284,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["transport", "workspace:modules/transport"],\
           ["@types/jest", "npm:29.5.14"],\
+          ["@types/node", "npm:22.17.0"],\
           ["jest", "virtual:56f1ce1f9f9b479f080761cd76d9d237bec80814063d8e8d827fb20687fd788741c827505a578773081558bad12314fe6404481371b02f74c02ebbad129f6fbd#npm:29.7.0"],\
           ["typescript", "patch:typescript@npm%3A5.9.2#optional!builtin<compat/typescript>::version=5.9.2&hash=5786d5"]\
         ],\

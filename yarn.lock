@@ -9069,6 +9069,7 @@ __metadata:
   resolution: "transport@workspace:modules/transport"
   dependencies:
     "@types/jest": "npm:^29.5.14"
+    "@types/node": "npm:^22.13.10"
     jest: "npm:29.7.0"
     typescript: "npm:^5.7"
   languageName: unknown
