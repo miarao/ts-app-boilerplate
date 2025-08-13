@@ -1,21 +1,15 @@
 import { createDefaultLogger, Logger } from 'logger'
+import { Instant } from 'misc'
+import { RequestContext } from 'service-primitives'
 
 export interface Throttler {
   throttle(context: RequestContext): Promise<void>
 }
 
-// Keep this local and tiny: epoch ms only.
-export interface Clock {
-  now(): number
-}
-
 export interface SimpleThrottlerOptions {
   perMinute?: number
   perHour?: number
-  clock?: Clock
 }
-
-import type { RequestContext } from './handler'
 
 /**
  * Fixed-window throttler. Tracks counts per 60s and/or 3600s windows.
@@ -24,15 +18,18 @@ import type { RequestContext } from './handler'
 export class SimpleThrottler implements Throttler {
   private readonly perMinute?: number
   private readonly perHour?: number
-  private readonly clock: Clock
 
   private minuteWindowStartMs: number
   private minuteCount = 0
   private hourWindowStartMs: number
   private hourCount = 0
 
-  constructor(private readonly logger: Logger = createDefaultLogger('info'), options: SimpleThrottlerOptions) {
-    const { perMinute, perHour, clock } = options
+  constructor(
+    private readonly clock: Instant,
+    private readonly logger: Logger = createDefaultLogger('info'),
+    options: SimpleThrottlerOptions,
+  ) {
+    const { perMinute, perHour } = options
 
     const minuteValid = perMinute !== undefined && perMinute >= 1
     const hourValid = perHour !== undefined && perHour >= 1
@@ -42,15 +39,14 @@ export class SimpleThrottler implements Throttler {
 
     this.perMinute = perMinute
     this.perHour = perHour
-    this.clock = clock ?? { now: () => Date.now() }
 
-    const now = this.clock.now()
+    const now = Instant.now().epochMs()
     this.minuteWindowStartMs = now
     this.hourWindowStartMs = now
   }
 
   async throttle(_context: RequestContext): Promise<void> {
-    const now = this.clock.now()
+    const now = Instant.now().epochMs()
 
     if (this.perMinute != null) {
       const elapsed = now - this.minuteWindowStartMs

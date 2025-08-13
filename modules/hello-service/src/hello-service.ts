@@ -8,9 +8,11 @@ import {
   Member,
 } from 'hello-api'
 import { createDefaultLogger, Logger } from 'logger'
-import { Moment, zodThingParser } from 'misc'
+import { Instant, zodThingParser } from 'misc'
 import { processAndNormalize } from 'playground'
-import { defineEndpoint, ServiceCatalog, ServiceWithData, SimpleThrottler } from 'service-boilerplate'
+import { ServiceWithData, SimpleThrottler } from 'service-boilerplate'
+import { defineEndpoint } from 'service-primitives'
+import { ServiceCatalog } from 'service-router'
 import { ThingStore } from 'thing-store'
 
 /**
@@ -19,7 +21,7 @@ import { ThingStore } from 'thing-store'
 export class HelloService extends ServiceWithData {
   constructor(
     logger: Logger = createDefaultLogger('info'),
-    private readonly clock: Moment = Moment.now(),
+    private readonly clock: Instant = Instant.now(),
     protected readonly store: ThingStore,
   ) {
     const catalog = new ServiceCatalog(logger)

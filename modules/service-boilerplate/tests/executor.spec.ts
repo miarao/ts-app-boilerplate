@@ -1,10 +1,10 @@
 import { createNoOpLogger, Logger } from 'logger'
 import { z } from 'zod'
 
-import { Executor, RequestPayload } from '../src'
+import { ServiceRouter, RequestPayload } from '../src'
 import { RequestContext } from '../src'
 import { ServiceCatalog } from '../src'
-import { ErrorCodes, TransportError, UnknownEndpointError, ValidationError } from '../src/primitives'
+import { ErrorCodes, TransportError, UnknownEndpointError, ValidationError } from '../../service-primitives/src/primitives'
 
 describe('Executor', () => {
   // Mock dependencies

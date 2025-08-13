@@ -1,5 +1,5 @@
 {
-  "name": "service-client",
+  "name": "service-throttler",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
@@ -16,16 +16,13 @@
     "preset": "../../jest.preset.js"
   },
   "dependencies": {
-    "axios": "^1.7.9",
     "jest": "29.7.0",
     "logger": "1.0.0",
-    "service-boilerplate": "1.0.0",
-    "transport": "1.0.0"
+    "misc": "1.0.0",
+    "service-primitives": "1.0.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
-    "@types/node": "22.10.10",
-    "typescript": "^5.7",
-    "zod": "^3.25.0"
+    "typescript": "^5.7"
   }
 }

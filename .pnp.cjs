@@ -71,8 +71,16 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:modules/service-boilerplate"\
     },\
     {\
-      "name": "service-client",\
-      "reference": "workspace:modules/service-client"\
+      "name": "service-primitives",\
+      "reference": "workspace:modules/service-primitives"\
+    },\
+    {\
+      "name": "service-router",\
+      "reference": "workspace:modules/service-router"\
+    },\
+    {\
+      "name": "service-throttler",\
+      "reference": "workspace:modules/service-throttler"\
     },\
     {\
       "name": "services-cli",\
@@ -112,7 +120,9 @@ const RAW_RUNTIME_STATE =
     ["model-hub-service", ["workspace:modules/model-hub-service"]],\
     ["playground", ["workspace:modules/playground"]],\
     ["service-boilerplate", ["workspace:modules/service-boilerplate"]],\
-    ["service-client", ["workspace:modules/service-client"]],\
+    ["service-primitives", ["workspace:modules/service-primitives"]],\
+    ["service-router", ["workspace:modules/service-router"]],\
+    ["service-throttler", ["workspace:modules/service-throttler"]],\
     ["services-cli", ["workspace:modules/services-cli"]],\
     ["services-local", ["workspace:modules/services-local"]],\
     ["thing-store", ["workspace:modules/thing-store"]],\
@@ -3262,14 +3272,6 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@types/node", [\
-      ["npm:22.10.10", {\
-        "packageLocation": "../../../../../../../.yarn/berry/cache/@types-node-npm-22.10.10-31182c993e-10c0.zip/node_modules/@types/node/",\
-        "packageDependencies": [\
-          ["@types/node", "npm:22.10.10"],\
-          ["undici-types", "npm:6.20.0"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
       ["npm:22.17.0", {\
         "packageLocation": "../../../../../../../.yarn/berry/cache/@types-node-npm-22.17.0-d1a2089b53-10c0.zip/node_modules/@types/node/",\
         "packageDependencies": [\
@@ -7046,6 +7048,8 @@ const RAW_RUNTIME_STATE =
           ["misc", "workspace:modules/misc"],\
           ["playground", "workspace:modules/playground"],\
           ["service-boilerplate", "workspace:modules/service-boilerplate"],\
+          ["service-primitives", "workspace:modules/service-primitives"],\
+          ["service-router", "workspace:modules/service-router"],\
           ["thing-store", "workspace:modules/thing-store"],\
           ["thing-store-local", "workspace:modules/thing-store-local"],\
           ["typescript", "patch:typescript@npm%3A5.9.2#optional!builtin<compat/typescript>::version=5.9.2&hash=5786d5"]\
@@ -10514,27 +10518,53 @@ const RAW_RUNTIME_STATE =
           ["jest", "virtual:56f1ce1f9f9b479f080761cd76d9d237bec80814063d8e8d827fb20687fd788741c827505a578773081558bad12314fe6404481371b02f74c02ebbad129f6fbd#npm:29.7.0"],\
           ["logger", "workspace:modules/logger"],\
           ["misc", "workspace:modules/misc"],\
+          ["service-primitives", "workspace:modules/service-primitives"],\
+          ["service-router", "workspace:modules/service-router"],\
           ["thing-store", "workspace:modules/thing-store"],\
+          ["typescript", "patch:typescript@npm%3A5.9.2#optional!builtin<compat/typescript>::version=5.9.2&hash=5786d5"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["service-primitives", [\
+      ["workspace:modules/service-primitives", {\
+        "packageLocation": "./modules/service-primitives/",\
+        "packageDependencies": [\
+          ["service-primitives", "workspace:modules/service-primitives"],\
+          ["@types/jest", "npm:29.5.14"],\
+          ["jest", "virtual:56f1ce1f9f9b479f080761cd76d9d237bec80814063d8e8d827fb20687fd788741c827505a578773081558bad12314fe6404481371b02f74c02ebbad129f6fbd#npm:29.7.0"],\
           ["typescript", "patch:typescript@npm%3A5.9.2#optional!builtin<compat/typescript>::version=5.9.2&hash=5786d5"],\
           ["zod", "npm:3.25.76"]\
         ],\
         "linkType": "SOFT"\
       }]\
     ]],\
-    ["service-client", [\
-      ["workspace:modules/service-client", {\
-        "packageLocation": "./modules/service-client/",\
+    ["service-router", [\
+      ["workspace:modules/service-router", {\
+        "packageLocation": "./modules/service-router/",\
         "packageDependencies": [\
-          ["service-client", "workspace:modules/service-client"],\
+          ["service-router", "workspace:modules/service-router"],\
           ["@types/jest", "npm:29.5.14"],\
-          ["@types/node", "npm:22.10.10"],\
-          ["axios", "npm:1.11.0"],\
           ["jest", "virtual:56f1ce1f9f9b479f080761cd76d9d237bec80814063d8e8d827fb20687fd788741c827505a578773081558bad12314fe6404481371b02f74c02ebbad129f6fbd#npm:29.7.0"],\
           ["logger", "workspace:modules/logger"],\
-          ["service-boilerplate", "workspace:modules/service-boilerplate"],\
-          ["transport", "workspace:modules/transport"],\
-          ["typescript", "patch:typescript@npm%3A5.9.2#optional!builtin<compat/typescript>::version=5.9.2&hash=5786d5"],\
-          ["zod", "npm:3.25.76"]\
+          ["misc", "workspace:modules/misc"],\
+          ["service-primitives", "workspace:modules/service-primitives"],\
+          ["typescript", "patch:typescript@npm%3A5.9.2#optional!builtin<compat/typescript>::version=5.9.2&hash=5786d5"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["service-throttler", [\
+      ["workspace:modules/service-throttler", {\
+        "packageLocation": "./modules/service-throttler/",\
+        "packageDependencies": [\
+          ["service-throttler", "workspace:modules/service-throttler"],\
+          ["@types/jest", "npm:29.5.14"],\
+          ["jest", "virtual:56f1ce1f9f9b479f080761cd76d9d237bec80814063d8e8d827fb20687fd788741c827505a578773081558bad12314fe6404481371b02f74c02ebbad129f6fbd#npm:29.7.0"],\
+          ["logger", "workspace:modules/logger"],\
+          ["misc", "workspace:modules/misc"],\
+          ["service-primitives", "workspace:modules/service-primitives"],\
+          ["typescript", "patch:typescript@npm%3A5.9.2#optional!builtin<compat/typescript>::version=5.9.2&hash=5786d5"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -11688,13 +11718,6 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["undici-types", [\
-      ["npm:6.20.0", {\
-        "packageLocation": "../../../../../../../.yarn/berry/cache/undici-types-npm-6.20.0-bd21e669af-10c0.zip/node_modules/undici-types/",\
-        "packageDependencies": [\
-          ["undici-types", "npm:6.20.0"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
       ["npm:6.21.0", {\
         "packageLocation": "../../../../../../../.yarn/berry/cache/undici-types-npm-6.21.0-eb2b0ed56a-10c0.zip/node_modules/undici-types/",\
         "packageDependencies": [\

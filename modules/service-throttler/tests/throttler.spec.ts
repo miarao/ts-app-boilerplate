@@ -1,9 +1,10 @@
-import { createNoOpLogger } from 'logger'
-
-import type { RequestContext } from '../src'
-import { type SimpleThrottlerOptions, SimpleThrottler } from '../src/throttler'
-
 // Minimal mutable clock for deterministic tests (epoch ms)
+import { createNoOpLogger } from 'logger'
+import { Instant } from 'misc'
+import { RequestContext } from 'service-primitives'
+
+import { SimpleThrottler, SimpleThrottlerOptions } from '../src'
+
 function makeFakeClock(startMs: number) {
   let t = startMs
   return {
@@ -22,7 +23,7 @@ function makeFakeClock(startMs: number) {
 
 class TestSimpleThrottler extends SimpleThrottler {
   constructor(options: SimpleThrottlerOptions) {
-    super(createNoOpLogger(), options)
+    super(makeFakeClock(Instant.now().epochMs()), createNoOpLogger(), options)
   }
 }
 

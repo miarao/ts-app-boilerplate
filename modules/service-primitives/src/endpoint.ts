@@ -1,7 +1,7 @@
 import { ZodType } from 'zod'
 
 import { Handler } from './handler'
-import { BoundEndpoint } from './primitives'
+import { BoundEndpoint } from './service-primitives'
 
 /**
  * Define a new endpoint by tying together:

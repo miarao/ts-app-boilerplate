@@ -4,5 +4,10 @@
     "composite": true,
     "outDir": "dist"
   },
-  "include": ["src/**/*", "src/**/*.json", "tests/**/*", "tests/**/*.json"]
+  "include": [
+    "src/**/*",
+    "src/**/*.json",
+    "tests/**/*",
+    "tests/**/*.json"
+  ]
 }

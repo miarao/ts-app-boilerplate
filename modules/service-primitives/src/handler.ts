@@ -21,16 +21,7 @@ export const HttpContextSchema = z
     params: z.record(z.string()).optional(),
   })
   .strict()
-export type HttpContext = z.infer<typeof HttpContextSchema>
-
-/** 3. User info (inside RequestContext.user) */
-const User = z
-  .object({
-    id: z.string(),
-    roles: z.array(z.string()),
-  })
-  .strict()
-export type User = z.infer<typeof User>
+export type HttpContextSchema = z.infer<typeof HttpContextSchema>
 
 /** 4. RequestContext as a Zod object schema */
 export const RequestContext = z

@@ -1,10 +1,10 @@
 import { Logger } from 'logger'
-import { errorLike, Parser } from 'misc'
+import { errorLike, Instant, Parser } from 'misc'
+import { ServiceCatalog } from 'service-router'
 import { ThingStore } from 'thing-store'
 
 import { ServiceBoilerplate } from './service-boilerplate'
-import { ServiceCatalog } from './service-catalog'
-import { Throttler } from './throttler'
+import { Throttler } from '../../service-throttler/src/throttler'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type DataTypeRegistry = Record<string, Parser<any>>
@@ -26,12 +26,13 @@ export class ServiceWithData extends ServiceBoilerplate {
 
   constructor(
     logger: Logger,
-    catalog: ServiceCatalog,
+    clock: Instant,
+    catalog: ServiceCatalog<unknown, unknown>,
     throttler: Throttler,
     protected store: ThingStore,
     dataTypes: DataTypeRegistry,
   ) {
-    super(logger, catalog, throttler)
+    super(logger, clock, catalog, throttler)
     this.dataTypes = dataTypes
   }
 

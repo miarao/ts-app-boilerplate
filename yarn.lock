@@ -2235,15 +2235,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:22.10.10":
-  version: 22.10.10
-  resolution: "@types/node@npm:22.10.10"
-  dependencies:
-    undici-types: "npm:~6.20.0"
-  checksum: 10c0/3425772d4513cd5dbdd87c00acda088113c03a97445f84f6a89744c60a66990b56c9d3a7213d09d57b6b944ae8ff45f985565e0c1846726112588e33a22dd12b
-  languageName: node
-  linkType: hard
-
 "@types/node@npm:^22.10.10, @types/node@npm:^22.13.10":
   version: 22.17.0
   resolution: "@types/node@npm:22.17.0"
@@ -5330,6 +5321,8 @@ __metadata:
     misc: "npm:1.0.0"
     playground: "npm:1.0.0"
     service-boilerplate: "npm:1.0.0"
+    service-primitives: "npm:1.0.0"
+    service-router: "npm:1.0.0"
     thing-store: "npm:1.0.0"
     thing-store-local: "npm:1.0.0"
     typescript: "npm:^5.7"
@@ -8382,25 +8375,47 @@ __metadata:
     jest: "npm:29.7.0"
     logger: "npm:1.0.0"
     misc: "npm:1.0.0"
+    service-primitives: "npm:1.0.0"
+    service-router: "npm:1.0.0"
     thing-store: "npm:1.0.0"
+    typescript: "npm:^5.7"
+  languageName: unknown
+  linkType: soft
+
+"service-primitives@npm:1.0.0, service-primitives@workspace:modules/service-primitives":
+  version: 0.0.0-use.local
+  resolution: "service-primitives@workspace:modules/service-primitives"
+  dependencies:
+    "@types/jest": "npm:^29.5.14"
+    jest: "npm:29.7.0"
     typescript: "npm:^5.7"
     zod: "npm:^3.25.0"
   languageName: unknown
   linkType: soft
 
-"service-client@workspace:modules/service-client":
+"service-router@npm:1.0.0, service-router@workspace:modules/service-router":
   version: 0.0.0-use.local
-  resolution: "service-client@workspace:modules/service-client"
+  resolution: "service-router@workspace:modules/service-router"
   dependencies:
     "@types/jest": "npm:^29.5.14"
-    "@types/node": "npm:22.10.10"
-    axios: "npm:^1.7.9"
     jest: "npm:29.7.0"
     logger: "npm:1.0.0"
-    service-boilerplate: "npm:1.0.0"
-    transport: "npm:1.0.0"
+    misc: "npm:1.0.0"
+    service-primitives: "npm:1.0.0"
     typescript: "npm:^5.7"
-    zod: "npm:^3.25.0"
+  languageName: unknown
+  linkType: soft
+
+"service-throttler@workspace:modules/service-throttler":
+  version: 0.0.0-use.local
+  resolution: "service-throttler@workspace:modules/service-throttler"
+  dependencies:
+    "@types/jest": "npm:^29.5.14"
+    jest: "npm:29.7.0"
+    logger: "npm:1.0.0"
+    misc: "npm:1.0.0"
+    service-primitives: "npm:1.0.0"
+    typescript: "npm:^5.7"
   languageName: unknown
   linkType: soft
 
@@ -9064,7 +9079,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"transport@npm:1.0.0, transport@workspace:modules/transport":
+"transport@workspace:modules/transport":
   version: 0.0.0-use.local
   resolution: "transport@workspace:modules/transport"
   dependencies:
@@ -9405,13 +9420,6 @@ __metadata:
     has-symbols: "npm:^1.1.0"
     which-boxed-primitive: "npm:^1.1.1"
   checksum: 10c0/7dbd35ab02b0e05fe07136c72cb9355091242455473ec15057c11430129bab38b7b3624019b8778d02a881c13de44d63cd02d122ee782fb519e1de7775b5b982
-  languageName: node
-  linkType: hard
-
-"undici-types@npm:~6.20.0":
-  version: 6.20.0
-  resolution: "undici-types@npm:6.20.0"
-  checksum: 10c0/68e659a98898d6a836a9a59e6adf14a5d799707f5ea629433e025ac90d239f75e408e2e5ff086afc3cace26f8b26ee52155293564593fbb4a2f666af57fc59bf
   languageName: node
   linkType: hard
 

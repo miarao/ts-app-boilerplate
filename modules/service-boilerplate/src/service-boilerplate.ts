@@ -1,19 +1,19 @@
 import { Logger } from 'logger'
+import { ErrorCodes, formatZodError, RequestContext, RequestPayload, ResponseFrame } from 'service-primitives'
+import { ServiceCatalog, ServiceRouter } from 'service-router'
 
-import { Executor } from './executor'
-import { RequestContext } from './handler'
-import { ErrorCodes, formatZodError, RequestPayload, ResponseFrame } from './primitives'
-import { ServiceCatalog } from './service-catalog'
-import type { Throttler } from './throttler'
+import type { Throttler } from '../../service-throttler/src/throttler'
+import { Instant } from 'misc'
 
 export class ServiceBoilerplate {
-  private readonly executor: Executor
+  private readonly router: ServiceRouter<unknown, unknown>
   constructor(
     readonly logger: Logger,
-    private readonly catalog: ServiceCatalog,
-    private readonly throttler: Throttler,
+    readonly clock: Instant,
+    private readonly catalog: ServiceCatalog<unknown, unknown>,
+    private readonly throttler?: Throttler,
   ) {
-    this.executor = new Executor(logger, this.catalog)
+    this.router = new ServiceRouter(logger, this.catalog)
   }
 
   private readonly handler = async (rawPayload: unknown, rawContext: unknown | undefined) => {
@@ -39,7 +39,9 @@ export class ServiceBoilerplate {
 
     // TODO (om): should be first call - context is currently unused by throttler
     this.logger.debug(`Applying throttling`)
-    await this.throttler.throttle(context)
+    if (this.throttler) {
+      await this.throttler.throttle(context)
+    }
 
     this.logger.info(`Processing request ${context.requestId}`)
 
@@ -62,7 +64,7 @@ export class ServiceBoilerplate {
     //  maybe something like type ExecutionOutcome:
     //  { result: "fulfilled", data: <parsed response> } | { result: "failed", error: <structured error> },
     //  executor should not throw
-    return await this.executor.execute(parsed.data, context)
+    return await this.router.route(parsed.data, context)
   }
 
   getHandler(): (input: unknown, context?: unknown) => Promise<unknown> {
