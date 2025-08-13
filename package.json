@@ -7,7 +7,7 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "build-clean": "turbo run build --cache=local:,remote:",
+    "build-clean": "rimraf modules/**/dist && turbo run build --cache=local:,remote:",
     "clean": "turbo clean",
     "format": "prettier --write \"**/*.{ts,tsx}\" \"!**/*.d.ts\"",
     "format:check": "prettier --check \"**/*.{ts,tsx}\"",

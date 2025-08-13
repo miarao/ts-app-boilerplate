@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from 'axios'
-import { RequestPayload, ResponseFormat, ResponseFrame } from 'service-boilerplate'
+import { RequestPayload, ResponseFormat, ResponseFrame } from 'service-primitives'
 
 import { APIClient, createApiClient } from './client'
 

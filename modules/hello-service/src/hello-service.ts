@@ -10,7 +10,7 @@ import {
 import { createDefaultLogger, Logger } from 'logger'
 import { Instant, zodThingParser } from 'misc'
 import { processAndNormalize } from 'playground'
-import { ServiceWithData, SimpleThrottler } from 'service-boilerplate'
+import { ServiceWithData } from 'service-boilerplate'
 import { defineEndpoint } from 'service-primitives'
 import { ServiceCatalog } from 'service-router'
 import { ThingStore } from 'thing-store'
@@ -21,15 +21,14 @@ import { ThingStore } from 'thing-store'
 export class HelloService extends ServiceWithData {
   constructor(
     logger: Logger = createDefaultLogger('info'),
-    private readonly clock: Instant = Instant.now(),
+    readonly clock: Instant = Instant.now(),
     protected readonly store: ThingStore,
   ) {
     const catalog = new ServiceCatalog(logger)
-    const throttler = new SimpleThrottler(logger, { perMinute: 60 })
 
     const dataTypes = { member: zodThingParser(Member) }
 
-    super(logger, catalog, throttler, store, dataTypes)
+    super(logger, clock, catalog, store, dataTypes)
 
     this.registerEndpoints(catalog)
   }
@@ -37,7 +36,7 @@ export class HelloService extends ServiceWithData {
   /**
    * Register all service endpoints
    */
-  private registerEndpoints(catalog: ServiceCatalog): void {
+  private registerEndpoints(catalog: ServiceCatalog<unknown, unknown>): void {
     // Register helloMember endpoint
     catalog.register(
       defineEndpoint('helloMember', HelloMemberRequest, HelloMemberResponse, {

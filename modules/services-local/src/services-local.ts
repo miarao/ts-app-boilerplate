@@ -2,7 +2,8 @@ import cors from 'cors'
 import express, { NextFunction, Request, Response } from 'express'
 import { createDefaultLogger, Logger } from 'logger'
 import { makeId } from 'misc'
-import { HttpMethod, ServiceBoilerplate } from 'service-boilerplate'
+import { ServiceBoilerplate } from 'service-boilerplate'
+import { HttpMethod } from 'service-primitives'
 import { z } from 'zod'
 
 /**

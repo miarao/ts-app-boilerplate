@@ -1,10 +1,10 @@
 import { Logger } from 'logger'
 import { errorLike, Instant, Parser } from 'misc'
+import { RateLimiter } from 'service-rate-limiter'
 import { ServiceCatalog } from 'service-router'
 import { ThingStore } from 'thing-store'
 
 import { ServiceBoilerplate } from './service-boilerplate'
-import { Throttler } from '../../service-throttler/src/throttler'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type DataTypeRegistry = Record<string, Parser<any>>
@@ -28,17 +28,14 @@ export class ServiceWithData extends ServiceBoilerplate {
     logger: Logger,
     clock: Instant,
     catalog: ServiceCatalog<unknown, unknown>,
-    throttler: Throttler,
     protected store: ThingStore,
     dataTypes: DataTypeRegistry,
+    rateLimiter?: RateLimiter,
   ) {
-    super(logger, clock, catalog, throttler)
+    super(logger, clock, catalog, rateLimiter)
     this.dataTypes = dataTypes
   }
 
-  /**
-   * ✅ IMPROVED: Validates data before saving
-   */
   protected async saveData<T>(typeName: string, data: T): Promise<string> {
     const parser = this.dataTypes[typeName]
     if (!parser) {
@@ -76,16 +73,13 @@ export class ServiceWithData extends ServiceBoilerplate {
     return {
       id: thing.id,
       type: thing.type,
-      data: parsedData, // ✅ Parsed object!
+      data: parsedData,
       createdAt: thing.createdAt,
       updatedAt: thing.updatedAt,
     }
   }
 
-  protected async findDataByType<T>(
-    typeName: string,
-    filter?: (data: T) => boolean, // ✅ Filter operates on parsed data
-  ): Promise<ParsedThing<T>[]> {
+  protected async findDataByType<T>(typeName: string, filter?: (data: T) => boolean): Promise<ParsedThing<T>[]> {
     const parser = this.dataTypes[typeName]
     if (!parser) {
       throw new Error(
@@ -162,9 +156,6 @@ export class ServiceWithData extends ServiceBoilerplate {
     await parser.parse(serialized)
   }
 
-  /**
-   * ✅ NEW: Get array of just the parsed data (convenience method)
-   */
   protected async getDataByType<T>(typeName: string, filter?: (data: T) => boolean): Promise<T[]> {
     const results = await this.findDataByType<T>(typeName, filter)
     return results.map(result => result.data)

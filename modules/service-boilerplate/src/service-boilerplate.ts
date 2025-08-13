@@ -1,9 +1,8 @@
 import { Logger } from 'logger'
-import { ErrorCodes, formatZodError, RequestContext, RequestPayload, ResponseFrame } from 'service-primitives'
-import { ServiceCatalog, ServiceRouter } from 'service-router'
-
-import type { Throttler } from '../../service-throttler/src/throttler'
 import { Instant } from 'misc'
+import { ErrorCodes, formatZodError, RequestContext, RequestPayload, ResponseFrame } from 'service-primitives'
+import { RateLimiter } from 'service-rate-limiter'
+import { ServiceCatalog, ServiceRouter } from 'service-router'
 
 export class ServiceBoilerplate {
   private readonly router: ServiceRouter<unknown, unknown>
@@ -11,7 +10,7 @@ export class ServiceBoilerplate {
     readonly logger: Logger,
     readonly clock: Instant,
     private readonly catalog: ServiceCatalog<unknown, unknown>,
-    private readonly throttler?: Throttler,
+    private readonly rateLimiter?: RateLimiter,
   ) {
     this.router = new ServiceRouter(logger, this.catalog)
   }
@@ -39,8 +38,8 @@ export class ServiceBoilerplate {
 
     // TODO (om): should be first call - context is currently unused by throttler
     this.logger.debug(`Applying throttling`)
-    if (this.throttler) {
-      await this.throttler.throttle(context)
+    if (this.rateLimiter) {
+      await this.rateLimiter.throttle(undefined)
     }
 
     this.logger.info(`Processing request ${context.requestId}`)

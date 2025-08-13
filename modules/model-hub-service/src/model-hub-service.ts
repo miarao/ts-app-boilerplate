@@ -1,7 +1,10 @@
 import { createDefaultLogger, Logger } from 'logger'
-import { errorLike } from 'misc'
+import { errorLike, Instant, systemClock } from 'misc'
 import { CreateModelRequest, CreateModelResponse, PromptModelRequest, PromptModelResponse } from 'model-hub-api'
-import { defineEndpoint, ServiceBoilerplate, ServiceCatalog, SimpleThrottler } from 'service-boilerplate'
+import { ServiceBoilerplate } from 'service-boilerplate'
+import { defineEndpoint, RequestContext } from 'service-primitives'
+import { RateLimiter } from 'service-rate-limiter'
+import { ServiceCatalog } from 'service-router'
 
 import { TextModel } from './model'
 
@@ -24,9 +27,9 @@ export class ModelHubService extends ServiceBoilerplate {
     // current limits: (taken from: https://ai.google.dev/gemini-api/docs/rate-limits#free-tier_1)
     // Gemini 2.5 Flash Preview 04-17	RPM: 10,	TPM: 250,000, RPD: 500
     // Gemini 2.0 Flash	RPM: 15,	TPM: 1,000,000, RPD: 1,500
-    const throttler = new SimpleThrottler(logger, { perMinute: 10, perHour: 21 })
+    const rateLimiter = new RateLimiter(systemClock, logger, { perMinute: 10, perHour: 21 })
 
-    super(logger, catalog, throttler)
+    super(logger, Instant.now(), catalog, rateLimiter)
 
     if (!this.apiKey) {
       logger.error('No API key provided for ModelHubService')
@@ -39,11 +42,11 @@ export class ModelHubService extends ServiceBoilerplate {
   /**
    * Register all service endpoints with the service catalog
    */
-  private registerEndpoints(catalog: ServiceCatalog): void {
+  private registerEndpoints(catalog: ServiceCatalog<unknown, unknown>): void {
     // Register createModel endpoint
     catalog.register(
       defineEndpoint('createModel', CreateModelRequest, CreateModelResponse, {
-        handle: async (request, context) => {
+        handle: async (request: CreateModelRequest, context: RequestContext) => {
           this.logger.info(`Processing createModel request for variant: ${request.variantKey}`, {
             requestId: context.requestId,
           })

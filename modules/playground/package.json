@@ -10,8 +10,8 @@
   ],
   "scripts": {
     "build": "tsc -b",
-    "test": "jest",
-    "run:cli": "node dist/src/playground.js"
+    "run:cli": "node dist/src/playground.js",
+    "test": "jest"
   },
   "jest": {
     "preset": "../../jest.preset.js"

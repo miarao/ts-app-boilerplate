@@ -20,6 +20,7 @@
     "logger": "1.0.0",
     "misc": "1.0.0",
     "service-primitives": "1.0.0",
+    "service-rate-limiter": "1.0.0",
     "service-router": "1.0.0",
     "thing-store": "1.0.0"
   },

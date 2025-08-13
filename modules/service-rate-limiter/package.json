@@ -1,5 +1,5 @@
 {
-  "name": "mcp-hub-service",
+  "name": "service-rate-limiter",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
@@ -16,15 +16,14 @@
     "preset": "../../jest.preset.js"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.17.2",
     "jest": "29.7.0",
     "logger": "1.0.0",
-    "mcp-hub-api": "^1.0.0",
-    "service-boilerplate": "1.0.0"
+    "misc": "1.0.0",
+    "service-primitives": "1.0.0",
+    "service-router": "1.0.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
-    "@types/node": "^22.10.10",
     "typescript": "^5.7"
   }
 }

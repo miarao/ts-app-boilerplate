@@ -95,18 +95,26 @@ ts-app-boilerplate
 │   │   ├── tests
 │   │   │   └── logger.spec.ts
 │   │   └── tsconfig.json
+│   ├── mcp-hub-api
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── index.ts
+│   │   │   └── mcp-hub-api.ts
+│   │   ├── tests
+│   │   │   └── mcp-hub-api.spec.ts
+│   │   └── tsconfig.json
 │   ├── misc
 │   │   ├── package.json
 │   │   ├── src
 │   │   │   ├── index.ts
+│   │   │   ├── instant.ts
 │   │   │   ├── make-id.ts
 │   │   │   ├── misc.ts
 │   │   │   ├── model.ts
-│   │   │   ├── instant.ts
 │   │   │   └── parser.ts
 │   │   ├── tests
-│   │   │   ├── misc.spec.ts
-│   │   │   └── instant.spec.ts
+│   │   │   ├── instant.spec.ts
+│   │   │   └── misc.spec.ts
 │   │   └── tsconfig.json
 │   ├── misc-fs
 │   │   ├── package.json
@@ -137,31 +145,58 @@ ts-app-boilerplate
 │   │   ├── tests
 │   │   │   └── model-hub-service.spec.ts
 │   │   └── tsconfig.json
+│   ├── playground
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── arn-to-name.ts
+│   │   │   ├── build-relationship-graph.ts
+│   │   │   ├── events.ts
+│   │   │   ├── flow-log-processer.ts
+│   │   │   ├── flow.log
+│   │   │   ├── index.ts
+│   │   │   ├── ip-map.ts
+│   │   │   ├── playground.ts
+│   │   │   └── stream-median-calculator.ts
+│   │   ├── tests
+│   │   │   └── playground.spec.ts
+│   │   └── tsconfig.json
 │   ├── service-boilerplate
 │   │   ├── package.json
 │   │   ├── src
+│   │   │   ├── index.ts
+│   │   │   ├── service-boilerplate.ts
+│   │   │   └── service-with-data.ts
+│   │   ├── tests
+│   │   │   └── service-boilerplate.spec.ts
+│   │   └── tsconfig.json
+│   ├── service-primitives
+│   │   ├── package.json
+│   │   ├── src
 │   │   │   ├── endpoint.ts
-│   │   │   ├── executor.ts
+│   │   │   ├── error.ts
 │   │   │   ├── handler.ts
 │   │   │   ├── index.ts
-│   │   │   ├── primitives.ts
-│   │   │   ├── service-boilerplate.ts
-│   │   │   ├── service-catalog.ts
-│   │   │   ├── service-with-data.ts
-│   │   │   └── throttler.ts
+│   │   │   └── service-primitives.ts
 │   │   ├── tests
-│   │   │   ├── executor.spec.ts
-│   │   │   ├── service-boilerplate.spec.ts
-│   │   │   └── throttler.spec.ts
+│   │   │   └── service-primitives.spec.ts
 │   │   └── tsconfig.json
-│   ├── service-client
+│   ├── service-rate-limiter
 │   │   ├── package.json
 │   │   ├── src
 │   │   │   ├── index.ts
-│   │   │   └── service-client.ts
+│   │   │   └── rate-limiter.ts
 │   │   ├── tests
-│   │   │   ├── service-client.e2e.spec.ts
-│   │   │   └── service-client.spec.ts
+│   │   │   └── rate-limiter.spec.ts
+│   │   └── tsconfig.json
+│   ├── service-router
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── index.ts
+│   │   │   ├── request-executor.ts
+│   │   │   ├── service-catalog.ts
+│   │   │   └── service-router.ts
+│   │   ├── tests
+│   │   │   └── service-router.spec.ts
 │   │   └── tsconfig.json
 │   ├── services-cli
 │   │   ├── package.json
@@ -200,14 +235,16 @@ ts-app-boilerplate
 │   └── transport
 │       ├── package.json
 │       ├── src
+│       │   ├── http-transport.ts
 │       │   ├── index.ts
+│       │   ├── stdio-transport.ts
+│       │   ├── streamable-http-transport.ts
 │       │   └── transport.ts
 │       ├── tests
 │       │   └── transport.spec.ts
 │       └── tsconfig.json
 ├── new-module
 ├── package.json
-├── progress.md
 ├── README.md
 ├── tree.txt
 ├── ts-jest.config.js

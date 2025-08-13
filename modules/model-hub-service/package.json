@@ -21,7 +21,10 @@
     "logger": "1.0.0",
     "misc": "1.0.0",
     "model-hub-api": "1.0.0",
-    "service-boilerplate": "1.0.0"
+    "service-boilerplate": "1.0.0",
+    "service-primitives": "1.0.0",
+    "service-rate-limiter": "1.0.0",
+    "service-router": "1.0.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",

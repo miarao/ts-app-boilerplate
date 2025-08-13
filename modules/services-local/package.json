@@ -27,6 +27,7 @@
     "misc": "1.0.0",
     "model-hub-service": "1.0.0",
     "service-boilerplate": "1.0.0",
+    "service-primitives": "1.0.0",
     "thing-store-local": "1.0.0",
     "zod": "^3.25.0"
   },
